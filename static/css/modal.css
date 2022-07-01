@@ -87,6 +87,7 @@
     margin: auto;
 }
 
+
 /* 게시글 상세 Modal */
 .popup-wrap {
     overflow-y: initial !important
@@ -107,7 +108,7 @@
     right: 0;
     bottom: 0;
 
-    padding-top: 2%;
+    /* padding-top: 2%; */
 
     display: none;
     z-index: 2;
@@ -133,6 +134,9 @@
 }
 
 .popup-close {
+    position: fixed;
+    right: 5%;
+
     cursor: pointer;
     font-size: 30px;
     padding-right: 30px;
