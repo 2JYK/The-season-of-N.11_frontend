@@ -29,11 +29,11 @@ function show_article() {
       let postings = response
       for (let i = 0; i < postings.length; i++) {
 
-        
+
         // console.log('ID ', postings[i].id)
         // console.log('article ', postings[i].title)
         // console.log('comments', comment[j].content)
-        
+
         append_temp_html(
           postings[i].id,
           postings[i].username,
@@ -43,10 +43,10 @@ function show_article() {
           // comment[j].username,
           // comment[j].content,
           // postings[i].img
-          )
-        }
-        function append_temp_html(id, user, title, content, comments, img) {
-          temp_html =`
+        )
+      }
+      function append_temp_html(id, user, title, content, comments, img) {
+        temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
           <div class="card-img" style="background: rgb(192, 236, 155);">
@@ -109,37 +109,36 @@ function show_article() {
                     </div>
                     </li> 
                     `
-                    $('#card').append(temp_html)
+        $('#card').append(temp_html)
 
-                    for (let j = 0; j < comments.length; j++){
-                      $(`#comment${id}`).append(`
+        for (let j = 0; j < comments.length; j++) {
+          $(`#comment${id}`).append(`
                       <p>${comments[j].username} : ${comments[j].content}</p>
                       <hr>
                       `)
-                    }
-                  }
-                }
-              });
-            } show_article()
+        }
+      }
+    }
+  });
+} show_article()
 
 
 // 게시글 작성
 async function post_article() {
   const title = document.getElementById("title").value
   const content = document.getElementById("content").value
-              
+
   const articleData = {
     title: title,
     content: content,
   }
-  console.log(articleData)
 
   const response = await fetch(`${backend_base_url}article/`, {
     method: 'POST',
 
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("access")
     },
     body: JSON.stringify(articleData)
   }
@@ -158,16 +157,18 @@ async function post_article() {
 
 //댓글 작성
 async function post_comment() {
-  const comment_content = document.getElementById("input_comment")
+  const content = document.getElementById("input_comment").value
+  console.log("148", content)
   const commentData = {
-    "content": comment_content
+    "content": content
   }
-  const response = await fetch(`${backend_base_url}article/comment`, {
+  console.log("152", commentData)
+  const response = await fetch(`${backend_base_url}article/comment/`, {
+    method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem("token")
+      'Authorization': "Bearer " + localStorage.getItem("access")
     },
-    method: 'POST',
     body: JSON.stringify(commentData)
   }
   )
@@ -178,5 +179,81 @@ async function post_comment() {
     alert(response.status)
   }
 
+}
+
+
+// 회원가입 //
+async function handleSignup() {
+  const signupData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+    email: document.getElementById("floatingInputEmail").value,
+    fullname: document.getElementById("floatingInputFullname").value,
+  }
+
+  const response = await fetch(`http://127.0.0.1:8000/user/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(signupData)
+  })
+
+  response_json = await response.json()
+
+  if (response.status == 200) {
+    console.log("여기", response_json)
+    window.location.replace(`http://127.0.0.1:5500/templates/login.html`)
+  } else {
+    console.log("여기11", response_json)
+    alert(response.status)
+  }
+}
+
+// 로그인 //
+async function handleLogin() {
+  const loginData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+  }
+
+  const response = await fetch(`http://127.0.0.1:8000/user/api/token/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(loginData)
+  })
+
+  response_json = await response.json()
+  console.log(response_json.access)
+
+  if (response.status == 200) {
+    localStorage.setItem("access", response_json.access);
+    localStorage.setItem("refresh", response_json.refresh);
+
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    localStorage.setItem("payload", jsonPayload);
+    window.location.replace(`http://127.0.0.1:5500/templates/index.html`)
+  } else {
+    alert(response.status)
+  }
 
 }
+
+// 로그아웃 //
+async function logout() {
+  localStorage.removeItem('payload')
+  localStorage.removeItem('access')
+  localStorage.removeItem('refresh')
+
+  window.location.replace(`${frontend_base_url}/templates/login.html`)
+}
+
