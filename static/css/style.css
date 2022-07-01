@@ -12,6 +12,12 @@
 }
 
 /* 포스트 카드 */
+.upload-btn {
+    float: right;
+    margin-right: 5%;
+}
+
+/* 포스트 카드 */
 .post-card {
     width: 80%;
     margin: auto;
@@ -37,7 +43,7 @@
 .card-img {
     /* width: 30.8vh; */
     height: 190px;
-    
+
     background-size: cover;
     background-position: center;
 }
