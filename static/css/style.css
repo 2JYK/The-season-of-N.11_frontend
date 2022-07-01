@@ -1,0 +1,77 @@
+* {
+    font-family: 'Noto Sans KR', sans-serif;
+    
+    list-style: none;
+    text-decoration: none;
+    border-collapse: collapse;
+    
+    margin: 0px;
+    padding: 0px;
+    
+    color: black;
+}
+
+.active {
+    display: flex;
+}
+
+.navbar {
+    z-index: 3;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.form-control {
+    max-width: 100%;
+    height: 40px;
+}
+
+/* 포스트 카드 */
+.post-card {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+
+    @media screen and (max-width: 718px) {
+        gap: 3px;
+    }
+}
+
+.post-card>li {
+    flex: 1;
+    height: auto;
+    margin: 20% auto auto 10%;
+}
+
+.card-img {
+    /* width: 30.8vh; */
+    height: 190px;
+    background-size: cover;
+    background-position: center;
+}
+
+.card-title {
+    align-items: center;
+    text-align: center;
+}
+
+.icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 글자수 제한 */
+.card-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    height: 72px;
+}
