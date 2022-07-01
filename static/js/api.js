@@ -9,8 +9,7 @@ function open_modal(id) {
 
 function close_modal(id) {
   // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
-  a = parseInt(id.slice(1))
-
+  a = parseInt(id.slice(1)) // 변수명 바꿔야 함
   function modal_close() {
     $("#popup" + a).fadeOut(); //페이드아웃
   }
@@ -28,21 +27,12 @@ function show_article() {
       console.log(response)
       let postings = response
       for (let i = 0; i < postings.length; i++) {
-
-
-        // console.log('ID ', postings[i].id)
-        // console.log('article ', postings[i].title)
-        // console.log('comments', comment[j].content)
-
         append_temp_html(
           postings[i].id,
           postings[i].username,
           postings[i].title,
           postings[i].content,
           postings[i].comments
-          // comment[j].username,
-          // comment[j].content,
-          // postings[i].img
         )
       }
       function append_temp_html(id, user, title, content, comments, img) {
@@ -110,12 +100,9 @@ function show_article() {
                     </li> 
                     `
         $('#card').append(temp_html)
-
         for (let j = 0; j < comments.length; j++) {
-          $(`#comment${id}`).append(`
-                      <p>${comments[j].username} : ${comments[j].content}</p>
-                      <hr>
-                      `)
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+                      <hr>`)
         }
       }
     }
@@ -178,8 +165,9 @@ async function post_comment() {
   } else {
     alert(response.status)
   }
-
 }
+
+
 
 
 // 회원가입 //
@@ -211,6 +199,7 @@ async function handleSignup() {
   }
 }
 
+
 // 로그인 //
 async function handleLogin() {
   const loginData = {
@@ -229,7 +218,7 @@ async function handleLogin() {
 
   response_json = await response.json()
   console.log(response_json.access)
-
+  
   if (response.status == 200) {
     localStorage.setItem("access", response_json.access);
     localStorage.setItem("refresh", response_json.refresh);
@@ -245,8 +234,9 @@ async function handleLogin() {
   } else {
     alert(response.status)
   }
-
 }
+
+
 
 // 로그아웃 //
 async function logout() {
@@ -256,4 +246,3 @@ async function logout() {
 
   window.location.replace(`${frontend_base_url}/templates/login.html`)
 }
-
