@@ -32,12 +32,16 @@
 
   <!-- 구글폰트 -->
   <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
   <!-- Add icon library -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
 
   <title>index</title>
 
   <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/nav.css">
+  <link rel="stylesheet" href="../static/css/modal.css">
 
 </head>
 
@@ -60,13 +64,50 @@
     </div>
   </nav>
 
+  <button id="modal_open" type="button" class="btn btn-dark upload-btn">Upload</button>
 
+    <!--  Modal start -->
+    <div id="myModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span></span>
+          <h3>원하는 스타일의 이미지를 선택해주세요.</h3>
+          <span class="close">&times;</span>
+        </div>
+        
+
+        <div class="style-imgs">
+          <div class="imgs1"></div>
+          <div class="imgs2"></div>
+          <div class="imgs3"></div>
+          <div class="imgs4"></div>
+        </div>
+        <div class="upload-img">
+          <input type="file" class="real-upload" accept="image/*" required multiple>
+        </div>
+        <div class="write">
+          <input class="title" id="title" placeholder="제목을 입력해주세요. (30자)"><br>
+          <textarea class="content" id="content" placeholder="내용을 입력해주세요. (100자)"></textarea>
+        </div>  
+        <div class="result-btn">
+          <button id="" type="button" class="btn btn-dark" onclick="post_article()">결과 보러가기</button>
+        </div>
+        
+      </div>
+    
+    </div>
+
+
+
+    <!-- 게시글 시작 -->
   <ul class="post-card" id="card">
     <!-- temp_html.append -->
 
   </ul>
 
-
+  <script src="../static/js/index.js"></script>
+  <script src="../static/js/modal.js"></script>
   <script src="../static/js/api.js"></script>
 </body>
 
