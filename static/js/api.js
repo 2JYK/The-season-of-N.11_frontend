@@ -36,7 +36,7 @@ function show_posting() {
         )
       }
       function append_temp_html(id, username, title, content, img) {
-        temp_html =`
+        temp_html = `
           <li>
             <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
               <div class="card-img" style="background: rgb(192, 236, 155);">
@@ -99,11 +99,71 @@ function show_posting() {
                         </div>
                     </div>
                 </div>
+
               </li> 
               `
+
         $('#card').append(temp_html)
       }
     }
   });
 }
 show_posting()
+
+// 게시글 작성
+async function post_article() {
+  const title = document.getElementById("title").value
+  const content = document.getElementById("content").value
+
+  const articleData = {
+    title: title,
+    content: content,
+  }
+  console.log(articleData)
+
+  const response = await fetch(`${backend_base_url}article/`, {
+    method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("token")
+    },
+    body: JSON.stringify(articleData)
+  }
+  )
+
+  response_json = await response.json()
+  console.log(response_json)
+
+  if (response.status == 200) {
+    window.location.replace(`${frontend_base_url}/`);
+  } else {
+    alert(response.status)
+  }
+}
+
+//댓글 작성
+async function post_comment() {
+  const comment_content = document.getElementById("input_comment")
+  const commentData = {
+    "content": comment_content
+  }
+  const response = await fetch(`${backend_base_url}article/comment`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("token")
+    },
+    method: 'POST',
+    body: JSON.stringify(commentData)
+  }
+  )
+
+  if (response.status == 200) {
+    return response
+  } else {
+    alert(response.status)
+  }
+
+
+}
+
