@@ -1,6 +1,6 @@
 // 전역 변수
-const backend_base_url = "http://127.0.0.1:8000/"
-const frontend_base_url = "http://127.0.0.1:5500/"
+const backend_base_url = 'http://127.0.0.1:8000'
+const frontend_base_url = 'http://127.0.0.1:5500/templates'
 
 
 // 회원가입 //
@@ -12,7 +12,7 @@ async function handleSignup() {
         fullname: document.getElementById("floatingInputFullname").value,
     }
 
-    const response = await fetch(`http://127.0.0.1:8000/user/`, {
+    const response = await fetch(`${backend_base_url}/user/`, {
         headers: {
             Accept: "application/json",
             'Content-type': 'application/json'
@@ -25,7 +25,7 @@ async function handleSignup() {
 
     if (response.status == 200) {
         console.log("여기", response_json)
-        window.location.replace(`http://127.0.0.1:5500/templates/login.html`)
+        window.location.replace(`${frontend_base_url}/login.html`)
     } else {
         console.log("여기11", response_json)
         alert(response.status)
@@ -39,7 +39,7 @@ async function handleLogin() {
         password: document.getElementById("floatingPassword").value,
     }
 
-    const response = await fetch(`http://127.0.0.1:8000/user/api/token/`, {
+    const response = await fetch(`${backend_base_url}/user/api/season/token/`, {
         headers: {
             Accept: "application/json",
             'Content-type': 'application/json'
@@ -62,10 +62,38 @@ async function handleLogin() {
         }).join(''));
 
         localStorage.setItem("payload", jsonPayload);
-        window.location.replace(`http://127.0.0.1:5500/templates/index.html`)
+        window.location.replace(`${frontend_base_url}/index.html`)
     } else {
         alert(response.status)
     }
+}
+
+// 로그아웃 //
+async function logout() {
+    localStorage.removeItem('payload')
+    localStorage.removeItem('access')
+    localStorage.removeItem('refresh')
+
+    window.location.replace(`${frontend_base_url}/login.html`)
+}
+
+
+// async function getUser() {
+//     const response = await fetch(`${backend_base_url}/user/`, {
+//         headers: {
+//             'Authorization': localStorage.getItem('access')
+//         }
+//     })
+//     console.log(response)
+
+//     if (response.status == 200) {
+//         response_json = await response.json()
+//         console.log(response_json)
+//         return response_json
+//     } else {
+//         return null
+//     }
+// }
 
 }
 
@@ -118,4 +146,3 @@ function show_posting() {
     });
 }
 show_posting()
-
