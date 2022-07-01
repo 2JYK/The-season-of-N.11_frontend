@@ -173,8 +173,12 @@
 .popup-comment {
     padding-right: 30%;
     padding-left: 30%;
-    text-align: center;
+    /* text-align: center; */
+    
+}
 
+.popup-comment > h1 {
+    text-align: center;
 }
 
 .popup-post-comment {
