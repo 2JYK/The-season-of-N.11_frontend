@@ -30,9 +30,14 @@
     margin: 20% auto auto 10%;
 }
 
+.card {
+    cursor: pointer;
+}
+
 .card-img {
     /* width: 30.8vh; */
     height: 190px;
+    
     background-size: cover;
     background-position: center;
 }
