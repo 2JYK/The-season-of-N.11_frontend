@@ -1,19 +1,5 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">        
-        <meta http-equiv="Content-Type" content="text/html">
- <!--       <link rel="stylesheet" href="../static/css/user.css" /> -->
-        <script src="../static/js/api.js"></script>
-        <title>Hello World</title>
-    </head>
-    <body>
-        <h1>마이 페이지</h1>
-        <h2 id="username"></h2>
-        <h2>게시글 목록</h2>
-        <button type=button id="loginout" onclick="logout()">로그아웃</button>
-    </body>
-</html>
 
 <head>
   <meta charset="UTF-8">
@@ -56,8 +42,8 @@
       <form class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="/mypage/"> My Page </a>
-            <a class="nav-link" href="/logout/"> 로그아웃 </a>
+            <a class="nav-link" href="./mypage.html">My Page</a>
+            <a class="nav-link" onclick="logout()"> 로그아웃 </a>
           </li>
         </ul>
       </form>
@@ -76,9 +62,12 @@
           <span class="close">&times;</span>
         </div>
         
-
-        <div class="style-imgs">
-          <div class="imgs1"></div>
+      <div class="style-imgs">
+        <div>
+          <input type="checkbox" id="a1" value="instance_norm/the_scream.t7">
+            <img class="imgs1" src="https://dimg.donga.com/wps/NEWS/IMAGE/2021/02/23/105572552.4.jpg" 
+            alt="instance_norm/the_scream.t7"></div>
+        </input>
           <div class="imgs2"></div>
           <div class="imgs3"></div>
           <div class="imgs4"></div>
@@ -90,8 +79,8 @@
           <input class="title" id="title" placeholder="제목을 입력해주세요. (30자)"><br>
           <textarea class="content" id="content" placeholder="내용을 입력해주세요. (100자)"></textarea>
         </div>  
-        <div class="result-btn">
-          <button id="" type="button" class="btn btn-dark" onclick="post_article()">결과 보러가기</button>
+        <div class="result-btn upload">
+          <button id="" type="button" class="btn btn-dark upload" onclick="post_article()">결과 보러가기</button>
         </div>
         
       </div>
