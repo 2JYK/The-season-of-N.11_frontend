@@ -94,46 +94,46 @@ async function logout() {
 //     }
 // }
 
-
 // 모달 제어
 function open_modal(id) {
-  $("#popup" + id).css('display', 'flex').hide().fadeIn();
-  //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+    $("#popup" + id).css('display', 'flex').hide().fadeIn();
+    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
 }
 
 function close_modal(id) {
-  // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
-  a = parseInt(id.slice(1)) // 변수명 바꿔야 함
-  function modal_close() {
-    $("#popup" + a).fadeOut(); //페이드아웃
-  }
+    // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
+    a = parseInt(id.slice(1)) // 변수명 바꿔야 함
+    function modal_close() {
+        $("#popup" + a).fadeOut(); //페이드아웃
+    }
 
-  $("#close" + a)
-  modal_close(); //모달 닫기);
+    $("#close" + a)
+    modal_close(); //모달 닫기);
 }
 // 모달 끝
 
-
 // article, comment GET API
 function show_article() {
-  $.ajax({
-    type: 'GET',
-    url: `${backend_base_url}article/`,
-    data: {},
-    success: function (response) {
-      console.log(response)
-      let postings = response
-      for (let i = 0; i < postings.length; i++) {
-        append_temp_html(
-          postings[i].id,
-          postings[i].username,
-          postings[i].title,
-          postings[i].content,
-          postings[i].comments
-        )
-      }
-      function append_temp_html(id, user, title, content, comments, img) {
-        temp_html = `
+    $.ajax({
+        type: 'GET',
+        url: `${backend_base_url}/article/`,
+        data: {},
+        success: function (response) {
+            console.log(response)
+
+            let postings = response
+            for (let i = 0; i < postings.length; i++) {
+                append_temp_html(
+                    postings[i].id,
+                    postings[i].username,
+                    postings[i].title,
+                    postings[i].content,
+                    postings[i].comments,
+                    postings[i].image
+                )
+            }
+            function append_temp_html(id, user, title, content, comments, image) {
+                temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
           <div class="card-img" style="background: rgb(192, 236, 155);">
@@ -168,6 +168,7 @@ function show_article() {
               <div class="popup-body">
               <div class="popup-img" style="background: rgb(141, 206, 214);">
               <!--이미지 삽입 예정-->
+                <img id="output-image" src="The-season-of-N.11_backend/${image}" alt="image">
               </div>
               <h2 class="popup-title">
               ${title}
@@ -196,70 +197,82 @@ function show_article() {
                     </div>
                     </li> 
                     `
-        $('#card').append(temp_html)
-        for (let j = 0; j < comments.length; j++) {
-          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+                $('#card').append(temp_html)
+                for (let j = 0; j < comments.length; j++) {
+                    $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
                       <hr>`)
+                }
+            }
         }
-      }
-    }
-  });
+    });
 } show_article()
 
+function getImageFiles(e) {
+    const files = e.currentTarget.files;
+    console.log(typeof files, files);
+}
 
 // 게시글 작성
 async function post_article() {
-  const title = document.getElementById("title").value
-  const content = document.getElementById("content").value
+    const title = document.getElementById("title").value
+    const content = document.getElementById("content").value
+    const style = document.getElementById('a1').value
+    const image = document.getElementById("real-upload")
 
-  const articleData = {
-    title: title,
-    content: content,
-  }
+    const articleData = {
+        title: title,
+        content: content,
+        style: style,
+        input: image
+    }
+    console.log(articleData)
 
-  const response = await fetch(`${backend_base_url}article/`, {
-    method: 'POST',
+    upload.addEventListener('click', () => realUpload.click());
+    realUpload.addEventListener('change', getImageFiles);
 
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem("access")
-    },
-    body: JSON.stringify(articleData)
-  }
-  )
+    const response = await fetch(`${backend_base_url}/article/`, {
+        method: 'POST',
 
-  response_json = await response.json()
-  console.log(response_json)
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("access")
+        },
+        body: JSON.stringify(articleData)
+    }
+    )
 
-  if (response.status == 200) {
-    window.location.replace(`${frontend_base_url}/`);
-  } else {
-    alert(response.status)
-  }
+    response_json = await response.json()
+    console.log(response_json)
+
+    if (response.status == 200) {
+        window.location.replace(`${frontend_base_url}/`);
+    } else {
+        alert(response.status)
+    }
 }
 
 
 //댓글 작성
 async function post_comment() {
-  const content = document.getElementById("input_comment").value
-  console.log("148", content)
-  const commentData = {
-    "content": content
-  }
-  console.log("152", commentData)
-  const response = await fetch(`${backend_base_url}article/comment/`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': "Bearer " + localStorage.getItem("access")
-    },
-    body: JSON.stringify(commentData)
-  }
-  )
+    const content = document.getElementById("input_comment").value
+    console.log("148", content)
+    const commentData = {
+        "content": content
+    }
+    console.log("152", commentData)
+    const response = await fetch(`${backend_base_url}/article/comment/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "Bearer " + localStorage.getItem("access")
+        },
+        body: JSON.stringify(commentData)
+    }
+    )
 
-  if (response.status == 200) {
-    return response
-  } else {
-    alert(response.status)
-  }
+    if (response.status == 200) {
+        return response
+    } else {
+        alert(response.status)
+    }
 }
