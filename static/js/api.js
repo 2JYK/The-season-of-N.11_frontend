@@ -24,19 +24,20 @@ function show_article() {
     url: `${backend_base_url}article/`,
     data: {},
     success: function (response) {
-      console.log(response)
       let postings = response
+
       for (let i = 0; i < postings.length; i++) {
         append_temp_html(
           postings[i].id,
           postings[i].username,
           postings[i].title,
           postings[i].content,
-          postings[i].comments
-          )
-        }
-        function append_temp_html(id, user, title, content, comments, img) {
-          temp_html = `
+          postings[i].comments,
+          postings[i].likes
+        )
+      }
+      function append_temp_html(id, user, title, content, comments, likes, img) {
+        temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
           <div class="card-img" style="background: rgb(192, 236, 155);">
@@ -52,7 +53,7 @@ function show_article() {
           </div>
 
           <div class="icons">
-          <i class="far fa-heart" style="font-size:24px" onclick="post_like(${id})"></i>
+          <i class="far fa-heart" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
           <i class="fa fa-bookmark-o" style="font-size:24px" onclick="post_bookmark(${id})"></i>
           </div>
           
@@ -101,50 +102,50 @@ function show_article() {
           </div>
           </li> 
           `
-          $('#card').append(temp_html)
-          
-          for (let j = 0; j < comments.length; j++) {
-            $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+        $('#card').append(temp_html)
+
+        for (let j = 0; j < comments.length; j++) {
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
             <hr>`)
-          }
         }
       }
-    });
-  } show_article()
-  
-  
-  // 게시글 작성
-  async function post_article() {
-    const title = document.getElementById("title").value
-    const content = document.getElementById("content").value
-    
-    const articleData = {
-      title: title,
-      content: content,
     }
-    
-    const response = await fetch(`${backend_base_url}article/`, {
-      method: 'POST',
-      
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "Bearer " + localStorage.getItem("access")
-      },
-      body: JSON.stringify(articleData)
-    }
-    )
-    
-    response_json = await response.json()
-    console.log(response_json)
-    
-    if (response.status == 200) {
-      window.location.replace(`${frontend_base_url}/`);
-    } else {
-      alert(response.status)
-    }
+  });
+} show_article()
+
+
+// 게시글 작성
+async function post_article() {
+  const title = document.getElementById("title").value
+  const content = document.getElementById("content").value
+
+  const articleData = {
+    title: title,
+    content: content,
   }
-    
-    
+
+  const response = await fetch(`${backend_base_url}article/`, {
+    method: 'POST',
+
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    body: JSON.stringify(articleData)
+  }
+  )
+
+  response_json = await response.json()
+  console.log(response_json)
+
+  if (response.status == 200) {
+    window.location.replace(`${frontend_base_url}/`);
+  } else {
+    alert(response.status)
+  }
+}
+
+
 //댓글 작성
 async function post_comment(id) {
   const content = document.getElementById("comment_input" + id).value
@@ -152,7 +153,7 @@ async function post_comment(id) {
     "article": id,
     "content": content
   }
-      
+
   const response = await fetch(`${backend_base_url}article/comment/`, {
     method: 'POST',
     headers: {
@@ -162,7 +163,7 @@ async function post_comment(id) {
     body: JSON.stringify(commentData)
   }
   )
-  
+
   if (response.status == 200) {
     // refresh(id)
     window.location.reload();
@@ -191,7 +192,7 @@ async function post_bookmark(id) {
   )
   response_json = await response.json()
   console.log('북마크', response_json)
-  
+
   if (response.status == 200) {
     alert("북마크가 되었습니다")
     return response
@@ -218,13 +219,15 @@ async function post_like(id) {
   )
   response_json = await response.json()
   console.log('좋아요 :', response_json)
-  
+
   if (response.status == 200) {
     alert("좋아요를 하셨습니다")
+    window.location.reload()
     return response
 
   } else {
     alert("좋아요를 취소 하셨습니다.")
+    window.location.reload()
   }
 }
 
@@ -237,7 +240,7 @@ async function handleSignup() {
     email: document.getElementById("floatingInputEmail").value,
     fullname: document.getElementById("floatingInputFullname").value,
   }
-  
+
   const response = await fetch(`http://127.0.0.1:8000/user/`, {
     headers: {
       Accept: "application/json",
