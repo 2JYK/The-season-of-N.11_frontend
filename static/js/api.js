@@ -3,6 +3,16 @@ const backend_base_url = "http://127.0.0.1:8000/"
 const frontend_base_url = "http://127.0.0.1:5500/"
 
 
+// 로그인한 user.id 찾는 함수
+function parseJwt(token) {
+  var base64Url = localStorage.getItem("access").split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+};
+
 function open_modal(id) {
   $("#popup" + id).css('display', 'flex').hide().fadeIn();
   //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
@@ -25,6 +35,7 @@ function show_article() {
     data: {},
     success: function (response) {
       let postings = response
+      console.log(postings)
 
       for (let i = 0; i < postings.length; i++) {
         append_temp_html(
@@ -53,7 +64,7 @@ function show_article() {
           </div>
 
           <div class="icons">
-          <i class="far fa-heart" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+          <i class="far fa-heart color${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
           <i class="fa fa-bookmark-o" style="font-size:24px" onclick="post_bookmark(${id})"></i>
           </div>
           
@@ -104,14 +115,54 @@ function show_article() {
           `
         $('#card').append(temp_html)
 
+        // 댓글
         for (let j = 0; j < comments.length; j++) {
           $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
-            <hr>`)
+          <hr>`)
+        }
+
+        // 좋아요
+        for (let l = 0; l < likes.length; l++) {
+
+          let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
+          console.log('로그인한 유저 ID :',typeof(now_user_id), now_user_id)
+
+          let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
+          like_user_id = parseInt(like_user_id.slice(0, 3))
+          console.log('like 테이블 유저 ID 속성 :',typeof(like_user_id), like_user_id)
+          
+          let article_id = `${id}`  // 게시글 ID
+          article_id = parseInt(article_id.slice(0, 3))
+          console.log('게시글 ID :',typeof(article_id), article_id)
+          
+          let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
+          like_article_id = parseInt(like_article_id.slice(0, 3))
+          console.log('like 테이블 게시글 ID :',typeof(like_article_id), like_article_id)
+
+          if (now_user_id == like_user_id && article_id == like_article_id) {
+            console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
+            $(`.color${id}`).css("color","red");
+          }
+          else {
+            console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+          }
         }
       }
     }
   });
 } show_article()
+
+// get 방식으로 user_id, article_id 변수로 받고
+// like DB안에 정보를 비교
+
+// Ex) 
+// if(now_user_id == like_user_id && article_id == like_article) {
+//   토클을 색깔 있는걸로 변경
+// }
+// else {
+//   기본 값
+// }
+
 
 
 // 게시글 작성
@@ -203,6 +254,7 @@ async function post_bookmark(id) {
 }
 
 
+
 // 좋아요
 async function post_like(id) {
   const likeData = {
@@ -218,7 +270,6 @@ async function post_like(id) {
   }
   )
   response_json = await response.json()
-  console.log('좋아요 :', response_json)
 
   if (response.status == 200) {
     alert("좋아요를 하셨습니다")
