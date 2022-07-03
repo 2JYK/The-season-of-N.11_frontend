@@ -63,9 +63,10 @@ function show_article() {
           </p>
           </div>
           </div>
-
+          
           <div class="icons">
           <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+          <span></span>
           <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
           </div>
           
@@ -143,6 +144,8 @@ function show_article() {
           if (now_user_id == like_user_id && article_id == like_article_id) {
             console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
             $(`.heart${id}`).css("color", "red");
+            $(`.heart${id}`).addClass("fa");
+            $(`.heart${id}`).removeClass("far");
           }
           else {
             console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')

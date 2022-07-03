@@ -38,6 +38,7 @@
 
 .card {
     cursor: pointer;
+    border-bottom: none;
 }
 
 .card-img {
@@ -55,7 +56,17 @@
 
 .icons {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    
+    padding: 3%;
+
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    border-left: 1px solid rgba(0,0,0,.125);
+    border-right: 1px solid rgba(0,0,0,.125);
+}
+
+.icons i {
+    cursor: pointer;
 }
 
 /* 글자수 제한 */
