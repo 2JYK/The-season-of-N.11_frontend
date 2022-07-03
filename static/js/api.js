@@ -217,33 +217,37 @@ async function post_article() {
     const title = document.getElementById("title").value
     const content = document.getElementById("content").value
     const style = document.getElementById('a1').value
-    const image = document.getElementById("real-upload")
+    const files = document.getElementById("fileUpload").files
+
+    const formData = new FormData()
+    formData.append('myFile', files[0])
 
     const articleData = {
         title: title,
         content: content,
         style: style,
-        input: image
     }
     console.log(articleData)
-
-    upload.addEventListener('click', () => realUpload.click());
-    realUpload.addEventListener('change', getImageFiles);
+    formData.append('articleData', articleData)
 
     const response = await fetch(`${backend_base_url}/article/`, {
         method: 'POST',
-
         headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("access")
+            'Access-Control-Allow-Origin':'*',
+            // 'Content-Type': 'application/json',
+            // 'Content-Type': 'multipart/form-data',
+            // 'Accept': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem("access")
         },
-        body: JSON.stringify(articleData)
+        // body: JSON.stringify(articleData)
+        body: formData
     }
     )
 
-    response_json = await response.json()
-    console.log(response_json)
-
+    console.log("1", formData)
+    response_json = await response.formData()
+    console.log(response_json)   
+    console.log("2", formData)
     if (response.status == 200) {
         window.location.replace(`${frontend_base_url}/`);
     } else {
