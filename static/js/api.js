@@ -44,10 +44,11 @@ function show_article() {
           postings[i].title,
           postings[i].content,
           postings[i].comments,
-          postings[i].likes
+          postings[i].likes,
+          postings[i].bookmarks
         )
       }
-      function append_temp_html(id, user, title, content, comments, likes, img) {
+      function append_temp_html(id, user, title, content, comments, likes, bookmarks, img) {
         temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
@@ -64,8 +65,8 @@ function show_article() {
           </div>
 
           <div class="icons">
-          <i class="far fa-heart color${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
-          <i class="fa fa-bookmark-o" style="font-size:24px" onclick="post_bookmark(${id})"></i>
+          <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+          <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
           </div>
           
           <!-- 게시글 상세페이지 모달 -->
@@ -125,26 +126,48 @@ function show_article() {
         for (let l = 0; l < likes.length; l++) {
 
           let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
-          console.log('로그인한 유저 ID :',typeof(now_user_id), now_user_id)
+          // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
 
           let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
           like_user_id = parseInt(like_user_id.slice(0, 3))
-          console.log('like 테이블 유저 ID 속성 :',typeof(like_user_id), like_user_id)
-          
+          // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
+
           let article_id = `${id}`  // 게시글 ID
           article_id = parseInt(article_id.slice(0, 3))
-          console.log('게시글 ID :',typeof(article_id), article_id)
-          
+          // console.log('게시글 ID :', typeof (article_id), article_id)
+
           let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
           like_article_id = parseInt(like_article_id.slice(0, 3))
-          console.log('like 테이블 게시글 ID :',typeof(like_article_id), like_article_id)
+          // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
 
           if (now_user_id == like_user_id && article_id == like_article_id) {
             console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
-            $(`.color${id}`).css("color","red");
+            $(`.heart${id}`).css("color", "red");
           }
           else {
             console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+          }
+        }
+
+        // 북마크
+        for (let m = 0; m < bookmarks.length; m++) {
+          let now_user_id = parseJwt('access').user_id
+          console.log("user ID :", now_user_id)
+
+          let bookmark_user_id = `${bookmarks[m].user}`
+          bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
+
+          let article_id = `${id}`
+          article_id = parseInt(article_id.slice(0, 3))
+
+          let bookmark_article_id = `${bookmarks[m].article}`
+          bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
+
+          if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
+            // $(".클래스 이름").attr("class","변경 할 클래스명");
+            $(`.bookmark${id}`).css("color", "blue");
+            $(`.bookmark${id}`).addClass("fa-bookmark");
+            $(`.bookmark${id}`).removeClass("fa-bookmark-o");
           }
         }
       }
@@ -156,8 +179,11 @@ function show_article() {
 // like DB안에 정보를 비교
 
 // Ex) 
+// if(로그인한 유저 ID == 좋아요한 유저 ID && 게시글 ID == 좋아요 된 게시글 ID)
+
 // if(now_user_id == like_user_id && article_id == like_article) {
-//   토클을 색깔 있는걸로 변경
+//   
+//    토클을 색깔 있는걸로 변경
 // }
 // else {
 //   기본 값
@@ -246,10 +272,12 @@ async function post_bookmark(id) {
 
   if (response.status == 200) {
     alert("북마크가 되었습니다")
+    window.location.reload()
     return response
 
   } else {
     alert("북마크가 취소 되었습니다")
+    window.location.reload()
   }
 }
 
