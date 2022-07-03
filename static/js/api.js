@@ -90,8 +90,8 @@ function show_article() {
                       
                       <!-- 게시글 상세페이지 모달창 댓글 input -->
                       <div class="popup-post-comment">
-                      <input class="popup-post-input" id="input_comment" type="text" placeholder="댓글을 입력 해주세요..." />
-                  <button class="popup-post-input-btn" onclick="save()">
+                      <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
+                  <button class="popup-post-input-btn" onclick="post_comment(${id})">
                     저장
                     </button>
                     </div>
@@ -141,15 +141,21 @@ async function post_article() {
   }
 }
 
-
+// function refresh(id) {
+//   console.log("여기2")
+//   const a = "#popup" + id
+//   console.log(a)
+//   $("a").load(location.href + " a");
+//   console.log($(a).load(location.href + a))
+// }
 //댓글 작성
-async function post_comment() {
-  const content = document.getElementById("input_comment").value
-  console.log("148", content)
+async function post_comment(id) {
+  const content = document.getElementById("comment_input" + id).value
   const commentData = {
+    "article": id,
     "content": content
   }
-  console.log("152", commentData)
+
   const response = await fetch(`${backend_base_url}article/comment/`, {
     method: 'POST',
     headers: {
@@ -161,6 +167,8 @@ async function post_comment() {
   )
 
   if (response.status == 200) {
+    // refresh(id)
+    window.location.reload()
     return response
   } else {
     alert(response.status)
@@ -218,7 +226,7 @@ async function handleLogin() {
 
   response_json = await response.json()
   console.log(response_json.access)
-  
+
   if (response.status == 200) {
     localStorage.setItem("access", response_json.access);
     localStorage.setItem("refresh", response_json.refresh);
