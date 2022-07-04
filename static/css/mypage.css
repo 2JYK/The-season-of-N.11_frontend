@@ -1,7 +1,9 @@
+/* 내가 작성한 글 + 북마크 버튼 */
 .navbar.two {
     justify-content: center;
 }
 
+/* 버튼 간격 */
 .mypage-btn {
     margin: 15px;
 }
