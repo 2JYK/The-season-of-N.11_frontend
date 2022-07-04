@@ -23,3 +23,8 @@ window.onclick = function (event) {
         modal.style.display = "none";
     }
 }
+
+$("#fileUpload").on('change', function () {
+    var fileName = $("#fileUpload").val();
+    $(".upload-name").val(fileName);
+});

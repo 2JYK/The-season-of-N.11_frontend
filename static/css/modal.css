@@ -22,7 +22,7 @@
 
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: rgb(238, 236, 232);
     margin: 5% auto;
 
     padding: 20px;
@@ -57,10 +57,41 @@
 
 
 /* Upload Button */
-.real-upload {
-    margin-top: 5%;
-    margin-left: 45%;
+.filebox {
+    margin: auto;
+    margin-top: 3%;
 }
+
+.filebox input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+}
+
+.filebox label {
+    display: inline-block;
+    padding: 10px 20px;
+    color: #fff;
+    vertical-align: middle;
+    background-color: #999999;
+    cursor: pointer;
+    height: 40px;
+    margin-left: 10px;
+}
+
+.real-upload {
+    display: inline-block;
+    height: 40px;
+    padding: 0 10px;
+    vertical-align: middle;
+    border: 1px solid #dddddd;
+    width: 78%;
+    color: #999999;
+}
+
 
 /* 게시글 입력란 */
 .write {
@@ -71,17 +102,23 @@
     width: 500px;
     height: 50px;
     margin-bottom: 3%;
+    border-radius: 3px;
 }
 
 .content {
     resize: none;
 
     width: 500px;
-    height: 100px;
+    height: 150px;
+    border-radius: 3px;
 }
 
 .result-btn {
     margin: auto;
+}
+
+.result-btn>button {
+    font-weight: bold;
 }
 
 
@@ -167,10 +204,10 @@
     padding-right: 30%;
     padding-left: 30%;
     /* text-align: center; */
-    
+
 }
 
-.popup-comment > h1 {
+.popup-comment>h1 {
     text-align: center;
 }
 
