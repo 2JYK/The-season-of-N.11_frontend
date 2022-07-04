@@ -79,8 +79,7 @@ async function logout() {
 }
 
 
-
-// 로그인한 user.id 찾는 함수
+// 로그인한 user.id 찾는 함수 //
 function parseJwt(token) {
     var base64Url = localStorage.getItem("access").split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -118,18 +117,14 @@ function open_modal(id) {
 }
 
 function close_modal(id) {
-
     // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
     parse_int = parseInt(id.slice(1)) // 변수명 바꿔야 함
     function modal_close() {
         $("#popup" + parse_int).fadeOut(); //페이드아웃
     }
- 
-    
 
     $("#close" + parse_int)
     modal_close(); //모달 닫기);
-
 }
 // 모달 끝 //
 
@@ -158,7 +153,8 @@ function show_article() {
                 temp_html = `
               <li>
               <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
-              <div class="card-img" style="background: url(${backend_base_url}${image});">
+              <div class="card-img" style="background: 
+              url(${backend_base_url}${image}) no-repeat center center/contain;">
               </div>
               <div class="card-body">
               <h5 class="card-title">${title}</h5>
@@ -215,7 +211,6 @@ function show_article() {
               저장
               </button>
               </div>
-              <!--<button class="delete-button" onclick="delete_article(${id})">게시글 삭제</button>-->
               </div>
               </div>
               </li> 
@@ -289,6 +284,7 @@ function show_article() {
     });
 } show_article()
 
+
 // get 방식으로 user_id, article_id 변수로 받고
 // like DB안에 정보를 비교
 
@@ -303,17 +299,18 @@ function show_article() {
 //   기본 값
 // }
 
-var imgs = document.querySelectorAll("#style-imgs .imgs");
 
+// 이미지 스타일 모델 적용 //
+var imgs = document.querySelectorAll("#style-imgs .imgs");
 for (var i = 0; i < imgs.length; i++) {
     imgs[i].addEventListener("click", click);
 }
-
 function click(e) {
     sessionStorage.setItem('model', this.alt)
 }
 
-// 게시글 작성
+
+// 게시글 작성 //
 async function post_article() {
     const title = document.getElementById("title").value
     const content = document.getElementById("content").value
@@ -363,7 +360,6 @@ async function post_comment(id) {
     }
     )
 
-
     if (response.status == 200) {
         window.location.reload();
         return response
@@ -407,6 +403,7 @@ async function post_bookmark(id) {
         body: JSON.stringify(bookmarkData)
     }
     )
+
     response_json = await response.json()
     console.log('북마크', response_json)
 
@@ -436,6 +433,7 @@ async function post_like(id) {
         body: JSON.stringify(likeData)
     }
     )
+    
     response_json = await response.json()
 
     if (response.status == 200) {
