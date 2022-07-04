@@ -144,7 +144,6 @@ function show_article() {
         for (let j = 0; j < comments.length; j++) {
           let time_post = new Date(comments[j].modlfied_time)
           let time_before = time2str(time_post)
-          console.log("댓글 time post :", time_post)
 
           $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
           &nbsp &nbsp &nbsp &nbsp &nbsp
