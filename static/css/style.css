@@ -56,12 +56,12 @@
 .icons {
     display: flex;
     justify-content: space-around;
-    
+
     padding: 3%;
 
-    border-bottom: 1px solid rgba(0,0,0,.125);
-    border-left: 1px solid rgba(0,0,0,.125);
-    border-right: 1px solid rgba(0,0,0,.125);
+    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    border-left: 1px solid rgba(0, 0, 0, .125);
+    border-right: 1px solid rgba(0, 0, 0, .125);
 }
 
 .icons i {
@@ -76,4 +76,29 @@
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     height: 72px;
+}
+
+.style-imgs {
+    overflow: scroll;
+    margin: auto;
+    padding: 30px 0px 30px 0px;
+
+}
+
+.input_image {
+    margin-left: 20px;
+}
+
+input[type="checkbox"] {
+    display: none;
+}
+
+input[type="checkbox"] {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+input[type="checkbox"]:checked+img {
+    border-radius: 1px;
+    box-shadow: 0px 0px 0px 8px rgba(255, 0, 0, 0.7);
 }

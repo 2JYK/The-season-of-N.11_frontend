@@ -25,13 +25,17 @@
                 <input type="password" class="form-control" id="floatingPassword" placeholder="Password" />
                 <label for="floatingPassword">Password</label>
             </div>
-
-            <button type="button" onclick="location.href='/signup.html'">
-                회원가입
-            </button>
             <button class="w-100 btn btn-lg btn-primary" type="button" onclick="handleLogin()">
                 Sign in
             </button>
+            <footer>
+                <div class="user_forgot">
+                    <a href="#">Forgot password ?</a>
+                </div>
+                <div class="sign_in">
+                    Don't have an account? <button class="btn btn-primary" type="button" onclick="location.href='./signup.html'">Sign Up</a>
+                </div>
+            </footer>
         </form>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
