@@ -154,8 +154,7 @@ function show_article() {
                 temp_html = `
               <li>
               <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
-              <div class="card-img" style="background: rgb(192, 236, 155);">
-              <!--이미지 삽입 예정-->
+              <div class="card-img" style="background: url(${backend_base_url}${image});">
               </div>
               <div class="card-body">
               <h5 class="card-title">${title}</h5>
@@ -186,8 +185,7 @@ function show_article() {
               
               <!-- 게시글 상세페이지 모달창 바디 -->
               <div class="popup-body">
-              <div class="popup-img" style="background: rgb(141, 206, 214);">
-              <!--이미지 삽입 예정-->
+              <div class="popup-img" style="background: url(${backend_base_url}${image}) no-repeat center center/contain;">
               </div>
               <h2 class="popup-title">
               ${title}
