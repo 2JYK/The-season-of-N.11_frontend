@@ -181,7 +181,7 @@ function show_article() {
               <span></span>
               <h2>${user} 님의 게시물</h2>
               <span></span>
-              <span id="1${id}" class="popup-close" onClick="close_modal(this.id)"> X </span>
+              <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
               </div>
               
               <!-- 게시글 상세페이지 모달창 바디 -->

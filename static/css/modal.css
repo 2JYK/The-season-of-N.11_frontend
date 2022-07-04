@@ -163,8 +163,8 @@
 /* 모달창 헤더 */
 .popup-header {
     display: flex;
-    justify-content: space-between;
-    padding: 2%;
+    justify-content: center;
+    align-items: center;
 }
 
 .popup-close {
@@ -173,15 +173,11 @@
 
     cursor: pointer;
     font-size: 30px;
-    padding-right: 30px;
 }
 
 
 /* 모달창 바디 */
 .popup-body {
-    /* padding-right: 15%;
-    padding-left: 15%; */
-
     text-align: center;
 }
 
@@ -237,4 +233,10 @@
     outline: none;
     background-color: transparent;
 
+}
+
+
+/* 모달 수정삭제 버튼 간격 */
+.popup-header i {
+    margin : 3%;
 }
