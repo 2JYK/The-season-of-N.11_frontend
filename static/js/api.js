@@ -293,9 +293,14 @@ async function post_article() {
     const content = document.getElementById("content").value
     const style = document.getElementById('a1').value
     const files = document.getElementById("fileUpload").files
+    const input = document.getElementById("fileUpload").files
+    console.log(title, content, style, input)
 
     const formData = new FormData()
-    formData.append('myFile', files[0])
+    formData.append('input', input[0])
+    formData.append('title', title)
+    formData.append('content', content)
+    formData.append('style', style)
 
     const articleData = {
         title: title,
@@ -306,27 +311,19 @@ async function post_article() {
     formData.append('articleData', articleData)
 
     const response = await fetch(`${backend_base_url}/article/`, {
-        method: 'POST',
         headers: {
-            'Access-Control-Allow-Origin':'*',
-            // 'Content-Type': 'application/json',
-            // 'Content-Type': 'multipart/form-data',
-            // 'Accept': 'application/json',
+            'Access-Control-Allow-Origin': '*',
             'Authorization': 'Bearer ' + localStorage.getItem("access")
         },
-        // body: JSON.stringify(articleData)
+        method: 'POST',
         body: formData
     }
     )
 
-    console.log("1", formData)
-    response_json = await response.formData()
-    console.log(response_json)   
-    console.log("2", formData)
     if (response.status == 200) {
         window.location.replace(`${frontend_base_url}/`);
     } else {
-        alert(response.status)
+        alert(response.status);
     }
 }
 
