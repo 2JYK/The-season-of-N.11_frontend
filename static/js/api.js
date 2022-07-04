@@ -96,7 +96,6 @@ async function logout() {
 // }
 
 
-
 // 로그인한 user.id 찾는 함수
 function parseJwt(token) {
   var base64Url = localStorage.getItem("access").split('.')[1];
@@ -106,7 +105,6 @@ function parseJwt(token) {
   }).join(''));
   return JSON.parse(jsonPayload);
 };
-
 
 
 // 댓글시간 나타내기
@@ -151,7 +149,7 @@ function close_modal(id) {
 function show_article() {
   $.ajax({
     type: 'GET',
-    url: `${backend_base_url}article/`,
+    url: `${backend_base_url}/article/`,
     data: {},
     success: function (response) {
       let postings = response
@@ -544,14 +542,3 @@ async function handleLogin() {
     alert(response.status)
   }
 }
-
-
-// 로그아웃 //
-async function logout() {
-  localStorage.removeItem('payload')
-  localStorage.removeItem('access')
-  localStorage.removeItem('refresh')
-
-  window.location.replace(`${frontend_base_url}templates/login.html`)
-}
-
