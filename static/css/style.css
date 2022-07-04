@@ -18,7 +18,7 @@
 
 /* 포스트 카드 */
 .post-card {
-    width: 80%;
+    width: 60%;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -1,4 +1,4 @@
-// 전역 변수
+// 전역 변수 //
 const backend_base_url = 'http://127.0.0.1:8000'
 const frontend_base_url = 'http://127.0.0.1:5500/templates'
 
@@ -26,11 +26,13 @@ async function handleSignup() {
   if (response.status == 200) {
     console.log("여기", response_json)
     window.location.replace(`${frontend_base_url}/login.html`)
+
   } else {
     console.log("여기11", response_json)
     alert(response.status)
   }
 }
+
 
 // 로그인 //
 async function handleLogin() {
@@ -49,7 +51,6 @@ async function handleLogin() {
   })
 
   response_json = await response.json()
-  console.log(response_json.access)
 
   if (response.status == 200) {
     localStorage.setItem("access", response_json.access);
@@ -63,10 +64,12 @@ async function handleLogin() {
 
     localStorage.setItem("payload", jsonPayload);
     window.location.replace(`${frontend_base_url}/index.html`)
+    
   } else {
     alert(response.status)
   }
 }
+
 
 // 로그아웃 //
 async function logout() {
@@ -78,8 +81,7 @@ async function logout() {
 }
 
 
-
-// 로그인한 user.id 찾는 함수
+// 로그인한 user.id 찾는 함수 //
 function parseJwt(token) {
   var base64Url = localStorage.getItem("access").split('.')[1];
   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -90,7 +92,27 @@ function parseJwt(token) {
 };
 
 
-// 모달 제어
+// 댓글 시간 나타내기 //
+function time2str(date) {
+  let today = new Date()
+  let time = (today - date) / 1000 / 60  // 분
+
+  if (time < 60) {
+    return parseInt(time) + "분 전"
+  }
+  time = time / 60  // 시간
+  if (time < 24) {
+    return parseInt(time) + "시간 전"
+  }
+  time = time / 24
+  if (time < 7) {
+    return parseInt(time) + "일 전"
+  }
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
+};
+
+
+// 모달 제어 //
 function open_modal(id) {
   $("#popup" + id).css('display', 'flex').hide().fadeIn();
   //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
@@ -98,17 +120,18 @@ function open_modal(id) {
 
 function close_modal(id) {
   // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
-  parse_int = parseInt(id.slice(1)) // 변수명 바꿔야 함
+  parse_int = parseInt(id.slice(1)) 
   function modal_close() {
     $("#popup" + parse_int).fadeOut(); //페이드아웃
   }
 
   $("#close" + parse_int)
-  modal_close(); //모달 닫기);
+  modal_close(); //모달 닫기
 }
-// 모달 끝
+// 모달 끝 //
 
-// article, comment GET API
+
+// article, comment GET API //
 function show_article() {
   $.ajax({
     type: 'GET',
@@ -116,7 +139,6 @@ function show_article() {
     data: {},
     success: function (response) {
       let postings = response
-      // console.log(postings)
 
       for (let i = 0; i < postings.length; i++) {
         append_temp_html(
@@ -142,73 +164,77 @@ function show_article() {
           <hr>
           <p class="card-text">
           ${content}
-          </p>              
-              <div class="icons">
-                <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes}</span></i>
-                <span></span>
-                <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
-              </div>
-              </div>
-              </div>
-              
-              <!-- 게시글 상세페이지 모달 -->
-              <div class="popup-wrap" id="popup${id}">
-              <div class="popup">
-              
-              <!-- 게시글 상세페이지 모달창 헤더 -->
-              <div class="popup-header">
-              <span></span>
-              <h2>${user} 님의 게시물</h2>
-              <span></span>
-              <span id="1${id}" class="popup-close" onClick="close_modal(this.id)"> X </span>
-              </div>
-              
-              <!-- 게시글 상세페이지 모달창 바디 -->
-              <div class="popup-body">
-              <div class="popup-img" style="
-              background: url(${backend_base_url}/${image})no-repeat center center/contain">
-              <!--이미지 삽입 예정-->
-              </div>
-              <div>
-              <h2 class="popup-title">
-              ${title}
-              </h2>
-              <hr>
-              <h5 class="popup-content">
-              ${content}
-              </h5>
-              <hr>
-              </div>
-              </div>
-              <!-- 게시글 상세페이지 모달창 댓글 output -->
-              <div class="popup-comment" id="comment${id}">
-              <h1>댓글 창</h1>
-                    <hr>
-
-                      </div>
-
-                      <!-- 게시글 상세페이지 모달창 댓글 input -->
-                      <div class="popup-post-comment">
-                      <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
-                    <button class="popup-post-input-btn" onclick="post_comment(${id})">
-                    저장
-                    </button>
-                    </div>
-                    </div>
-                    </div>
-                    </li> 
-                    `
+          </p>
+          </div>
+          </div>
+          
+          <div class="icons">
+          <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+          <span></span>
+          <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
+          </div>
+          
+          <!-- 게시글 상세페이지 모달 -->
+          <div class="popup-wrap" id="popup${id}">
+          <div class="popup">
+          
+          <!-- 게시글 상세페이지 모달창 헤더 -->
+          <div class="popup-header">
+          <span></span>
+          <h2>${user} 님의 게시물</h2>
+          <span></span>
+          <span id="1${id}" class="popup-close" onClick="close_modal(this.id)"> X </span>
+          </div>
+          
+          <!-- 게시글 상세페이지 모달창 바디 -->
+          <div class="popup-body">
+          <div class="popup-img" style="background: rgb(141, 206, 214);">
+          <!--이미지 삽입 예정-->
+          </div>
+          <h2 class="popup-title">
+          ${title}
+          </h2>
+          <hr>
+          <h5 class="popup-content">
+          ${content}
+          </h5>
+          <hr>
+          </div>
+          <!-- 게시글 상세페이지 모달창 댓글 output -->
+          <div class="popup-comment" id="comment${id}">
+          <h1>댓글 창</h1>
+          <hr>
+          
+          </div>
+          
+          <!-- 게시글 상세페이지 모달창 댓글 input -->
+          <div class="popup-post-comment">
+          
+          <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
+          <button class="popup-post-input-btn" onclick="post_comment(${id})">
+          저장
+          </button>
+          </div>
+          </div>
+          </div>
+          </li> 
+          `
         $('#card').append(temp_html)
 
-        // 댓글
+        // 댓글 //
         for (let j = 0; j < comments.length; j++) {
-          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+          let time_post = new Date(comments[j].modlfied_time)
+          let time_before = time2str(time_post)
+          console.log("댓글 time post :", time_post)
+
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
+          &nbsp &nbsp &nbsp &nbsp &nbsp
+          ${time_before}&nbsp&nbsp<i onclick="delete_comment(${comments[j].id})" class="fa-regular fa-trash-can"></i></p>
           <hr>`)
         }
 
-        // // 좋아요
+        // // 좋아요 //
         // for (let l = 0; l < likes.length; l++) {
-
         //     let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
         //     // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
 
@@ -230,12 +256,14 @@ function show_article() {
         //         $(`.heart${id}`).addClass("fa");
         //         $(`.heart${id}`).removeClass("far");
         //     }
+
         //     else {
         //         console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
         //     }
         // }
 
-        // // 북마크
+
+        // // 북마크 //
         // for (let m = 0; m < bookmarks.length; m++) {
         //     let now_user_id = parseJwt('access').user_id
         //     console.log("user ID :", now_user_id)
@@ -276,20 +304,20 @@ function show_article() {
 //   기본 값
 // }
 
-// 게시글 작성
+
+// 게시글 작성 //
 async function post_article() {
   const title = document.getElementById("title").value
   const content = document.getElementById("content").value
   const style = document.getElementById('a1').value
   const input = document.getElementById("fileUpload").files
-  console.log(title, content, style, input)
 
   const formData = new FormData()
   formData.append('input', input[0])
   formData.append('title', title)
   formData.append('content', content)
   formData.append('style', style)
-
+  
   const response = await fetch(`${backend_base_url}/article/`, {
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -302,13 +330,14 @@ async function post_article() {
 
   if (response.status == 200) {
     window.location.replace(`${frontend_base_url}/`);
+
   } else {
     alert(response.status);
   }
 }
 
 
-//댓글 작성
+// 댓글 작성 //
 async function post_comment(id) {
   const content = document.getElementById("comment_input" + id).value
   const commentData = {
@@ -327,9 +356,7 @@ async function post_comment(id) {
   )
 
   if (response.status == 200) {
-    // refresh(id)
     window.location.reload();
-
     return response
 
   } else {
@@ -338,11 +365,32 @@ async function post_comment(id) {
 }
 
 
-// 북마크
+// 댓글 삭제 //
+async function delete_comment(id) {
+  const response = await fetch(`${backend_base_url}article/comment/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    method: 'DELETE'
+  }
+  )
+
+  if (response.status == 200) {
+    window.location.reload();
+
+  } else {
+    alert("댓글 작성자만 삭제 가능합니다.")
+  }
+}
+
+
+// 북마크 //
 async function post_bookmark(id) {
   const bookmarkData = {
     "article": id,
   }
+
   const response = await fetch(`${backend_base_url}/article/bookmark/`, {
     method: 'POST',
     headers: {
@@ -367,12 +415,12 @@ async function post_bookmark(id) {
 }
 
 
-
-// 좋아요
+// 좋아요 //
 async function post_like(id) {
   const likeData = {
     "article": id,
   }
+
   const response = await fetch(`${backend_base_url}/article/like/`, {
     method: 'POST',
     headers: {
