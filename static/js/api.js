@@ -13,6 +13,28 @@ function parseJwt(token) {
   return JSON.parse(jsonPayload);
 };
 
+
+// 댓글시간 나타내기
+function time2str(date) {
+  let today = new Date()
+  let time = (today - date) / 1000 / 60  // 분
+
+  if (time < 60) {
+      return parseInt(time) + "분 전"
+  }
+  time = time / 60  // 시간
+  if (time < 24) {
+      return parseInt(time) + "시간 전"
+  }
+  time = time / 24
+  if (time < 7) {
+      return parseInt(time) + "일 전"
+  }
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
+};
+
+
+// 모달 제어
 function open_modal(id) {
   $("#popup" + id).css('display', 'flex').hide().fadeIn();
   //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
@@ -119,7 +141,13 @@ function show_article() {
 
         // 댓글
         for (let j = 0; j < comments.length; j++) {
-          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+          let time_post = new Date(comments[j].modlfied_time)
+          let time_before = time2str(time_post)
+          console.log("댓글 time post :",time_post)
+          
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
+          &nbsp &nbsp &nbsp &nbsp &nbsp
+          ${time_before}</p>
           <hr>`)
         }
 
@@ -379,7 +407,6 @@ async function handleLogin() {
     alert(response.status)
   }
 }
-
 
 
 // 로그아웃 //
