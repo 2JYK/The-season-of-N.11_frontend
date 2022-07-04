@@ -94,21 +94,33 @@ async function logout() {
 //     }
 // }
 
+
+// 로그인한 user.id 찾는 함수
+function parseJwt(token) {
+  var base64Url = localStorage.getItem("access").split('.')[1];
+  var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+  var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function (c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+  return JSON.parse(jsonPayload);
+};
+
+
 // 모달 제어
 function open_modal(id) {
-    $("#popup" + id).css('display', 'flex').hide().fadeIn();
-    //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
+  $("#popup" + id).css('display', 'flex').hide().fadeIn();
+  //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과
 }
 
 function close_modal(id) {
-    // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
-    a = parseInt(id.slice(1)) // 변수명 바꿔야 함
-    function modal_close() {
-        $("#popup" + a).fadeOut(); //페이드아웃
-    }
+  // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
+  parse_int = parseInt(id.slice(1)) // 변수명 바꿔야 함
+  function modal_close() {
+    $("#popup" + parse_int).fadeOut(); //페이드아웃
+  }
 
-    $("#close" + a)
-    modal_close(); //모달 닫기);
+  $("#close" + parse_int)
+  modal_close(); //모달 닫기);
 }
 // 모달 끝
 
@@ -116,12 +128,12 @@ function close_modal(id) {
 function show_article() {
     $.ajax({
         type: 'GET',
-        url: `${backend_base_url}/article/`,
+        url: `${backend_base_url}article/`,
         data: {},
         success: function (response) {
-            console.log(response)
-
             let postings = response
+            console.log(postings)
+
             for (let i = 0; i < postings.length; i++) {
                 append_temp_html(
                     postings[i].id,
@@ -129,10 +141,11 @@ function show_article() {
                     postings[i].title,
                     postings[i].content,
                     postings[i].comments,
-                    postings[i].image
+                    postings[i].likes,
+                    postings[i].bookmarks
                 )
             }
-            function append_temp_html(id, user, title, content, comments, image) {
+            function append_temp_html(id, user, title, content, comments, likes, bookmarks, img) {
                 temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
@@ -144,11 +157,12 @@ function show_article() {
           <hr>
           <p class="card-text">
           ${content}
-          </p>
-          <div class="icons">
-          <i class="far fa-heart" style="font-size:24px"></i>
-          <i class="fa fa-bookmark-o" style="font-size:24px"></i>
-          </div>
+          </p>              
+              <div class="icons">
+              <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+              <span></span>
+              <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
+              </div>
               </div>
               </div>
               
@@ -168,7 +182,6 @@ function show_article() {
               <div class="popup-body">
               <div class="popup-img" style="background: rgb(141, 206, 214);">
               <!--이미지 삽입 예정-->
-                <img id="output-image" src="The-season-of-N.11_backend/${image}" alt="image">
               </div>
               <h2 class="popup-title">
               ${title}
@@ -185,11 +198,11 @@ function show_article() {
                     <hr>
 
                       </div>
-                      
+
                       <!-- 게시글 상세페이지 모달창 댓글 input -->
                       <div class="popup-post-comment">
-                      <input class="popup-post-input" id="input_comment" type="text" placeholder="댓글을 입력 해주세요..." />
-                  <button class="popup-post-input-btn" onclick="save()">
+                      <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
+                    <button class="popup-post-input-btn" onclick="post_comment(${id})">
                     저장
                     </button>
                     </div>
@@ -198,19 +211,81 @@ function show_article() {
                     </li> 
                     `
                 $('#card').append(temp_html)
-                for (let j = 0; j < comments.length; j++) {
-                    $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
-                      <hr>`)
-                }
-            }
+
+        // 댓글
+        for (let j = 0; j < comments.length; j++) {
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+          <hr>`)
         }
-    });
+
+        // 좋아요
+        for (let l = 0; l < likes.length; l++) {
+
+          let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
+          // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
+
+          let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
+          like_user_id = parseInt(like_user_id.slice(0, 3))
+          // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
+
+          let article_id = `${id}`  // 게시글 ID
+          article_id = parseInt(article_id.slice(0, 3))
+          // console.log('게시글 ID :', typeof (article_id), article_id)
+
+          let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
+          like_article_id = parseInt(like_article_id.slice(0, 3))
+          // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
+
+          if (now_user_id == like_user_id && article_id == like_article_id) {
+            console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
+            $(`.heart${id}`).css("color", "red");
+            $(`.heart${id}`).addClass("fa");
+            $(`.heart${id}`).removeClass("far");
+          }
+          else {
+            console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+          }
+        }
+
+        // 북마크
+        for (let m = 0; m < bookmarks.length; m++) {
+          let now_user_id = parseJwt('access').user_id
+          console.log("user ID :", now_user_id)
+
+          let bookmark_user_id = `${bookmarks[m].user}`
+          bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
+
+          let article_id = `${id}`
+          article_id = parseInt(article_id.slice(0, 3))
+
+          let bookmark_article_id = `${bookmarks[m].article}`
+          bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
+
+          if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
+            // $(".클래스 이름").attr("class","변경 할 클래스명");
+            $(`.bookmark${id}`).css("color", "blue");
+            $(`.bookmark${id}`).addClass("fa-bookmark");
+            $(`.bookmark${id}`).removeClass("fa-bookmark-o");
+          }
+        }
+      }
+    }
+  });
 } show_article()
 
-function getImageFiles(e) {
-    const files = e.currentTarget.files;
-    console.log(typeof files, files);
-}
+// get 방식으로 user_id, article_id 변수로 받고
+// like DB안에 정보를 비교
+
+// Ex) 
+// if(로그인한 유저 ID == 좋아요한 유저 ID && 게시글 ID == 좋아요 된 게시글 ID)
+
+// if(now_user_id == like_user_id && article_id == like_article) {
+//   
+//    토클을 색깔 있는걸로 변경
+// }
+// else {
+//   기본 값
+// }
 
 // 게시글 작성
 async function post_article() {
@@ -257,14 +332,14 @@ async function post_article() {
 
 
 //댓글 작성
-async function post_comment() {
-    const content = document.getElementById("input_comment").value
-    console.log("148", content)
+async function post_comment(id) {
+    const content = document.getElementById("comment_input" + id).value
     const commentData = {
+        "article": id,
         "content": content
     }
-    console.log("152", commentData)
-    const response = await fetch(`${backend_base_url}/article/comment/`, {
+    
+    const response = await fetch(`${backend_base_url}article/comment/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -275,8 +350,137 @@ async function post_comment() {
     )
 
     if (response.status == 200) {
-        return response
+      // refresh(id)
+      window.location.reload();
+
+      return response
+
     } else {
         alert(response.status)
     }
+  }
+
+
+// 북마크
+async function post_bookmark(id) {
+  const bookmarkData = {
+    "article": id,
+  }
+  const response = await fetch(`${backend_base_url}article/bookmark/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    body: JSON.stringify(bookmarkData)
+  }
+  )
+  response_json = await response.json()
+  console.log('북마크', response_json)
+
+  if (response.status == 200) {
+    alert("북마크가 되었습니다")
+    window.location.reload()
+    return response
+
+  } else {
+    alert("북마크가 취소 되었습니다")
+    window.location.reload()
+  }
+}
+
+
+
+// 좋아요
+async function post_like(id) {
+  const likeData = {
+    "article": id,
+  }
+  const response = await fetch(`${backend_base_url}article/like/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    body: JSON.stringify(likeData)
+  }
+  )
+  response_json = await response.json()
+
+  if (response.status == 200) {
+    alert("좋아요를 하셨습니다")
+    window.location.reload()
+    return response
+
+  } else {
+    alert("좋아요를 취소 하셨습니다.")
+    window.location.reload()
+  }
+}
+
+
+// 회원가입 //
+async function handleSignup() {
+  const signupData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+    email: document.getElementById("floatingInputEmail").value,
+    fullname: document.getElementById("floatingInputFullname").value,
+  }
+
+  const response = await fetch(`http://127.0.0.1:8000/user/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(signupData)
+  })
+
+  response_json = await response.json()
+
+  if (response.status == 200) {
+    console.log("여기", response_json)
+    window.location.replace(`http://127.0.0.1:5500/templates/login.html`)
+  } else {
+    console.log("여기11", response_json)
+    alert(response.status)
+  }
+}
+
+
+// 로그인 //
+async function handleLogin() {
+  const loginData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+  }
+
+  const response = await fetch(`http://127.0.0.1:8000/user/api/token/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(loginData)
+  })
+
+  response_json = await response.json()
+  console.log(response_json.access)
+
+  if (response.status == 200) {
+    localStorage.setItem("access", response_json.access);
+    localStorage.setItem("refresh", response_json.refresh);
+
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    localStorage.setItem("payload", jsonPayload);
+    window.location.replace(`http://127.0.0.1:5500/templates/index.html`)
+  } else {
+    alert(response.status)
+  }
 }
