@@ -13,13 +13,12 @@
 
 /* 포스트 카드 */
 .upload-btn {
-    float: right;
-    margin-right: 5%;
+    padding-top: 1%;
 }
 
 /* 포스트 카드 */
 .post-card {
-    width: 80%;
+    width: 60%;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);

@@ -108,6 +108,27 @@ function parseJwt(token) {
 };
 
 
+
+// 댓글시간 나타내기
+function time2str(date) {
+  let today = new Date()
+  let time = (today - date) / 1000 / 60  // 분
+
+  if (time < 60) {
+    return parseInt(time) + "분 전"
+  }
+  time = time / 60  // 시간
+  if (time < 24) {
+    return parseInt(time) + "시간 전"
+  }
+  time = time / 24
+  if (time < 7) {
+    return parseInt(time) + "일 전"
+  }
+  return `${date.getFullYear()}년 ${date.getMonth() + 1}월 ${date.getDate()}일`
+};
+
+
 // 모달 제어
 function open_modal(id) {
   $("#popup" + id).css('display', 'flex').hide().fadeIn();
@@ -210,6 +231,7 @@ function show_article() {
           저장
           </button>
           </div>
+          <!--<button class="delete-button" onclick="delete_article(${id})">게시글 삭제</button>-->
           </div>
           </div>
           </li> 
@@ -218,7 +240,13 @@ function show_article() {
 
         // 댓글
         for (let j = 0; j < comments.length; j++) {
-          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}</p>
+          let time_post = new Date(comments[j].modlfied_time)
+          let time_before = time2str(time_post)
+          console.log("댓글 time post :", time_post)
+
+          $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
+          &nbsp &nbsp &nbsp &nbsp &nbsp
+          ${time_before}&nbsp&nbsp<i onclick="delete_comment(${comments[j].id})" class="fa-regular fa-trash-can"></i></p>
           <hr>`)
         }
 
@@ -324,6 +352,26 @@ async function post_article() {
   }
 }
 
+// //게시글 삭제
+// async function delete_article(id) {
+//   const response = await fetch(`${backend_base_url}article/${id}`, {
+//     headers: {
+//       'Content-Type': 'application/json',
+//       'Authorization': "Bearer " + localStorage.getItem("access")
+//     },
+//     method: 'DELETE'
+
+//   }
+//   )
+
+//   if (response.status == 200) {
+//     window.location.reload();
+//   } else {
+//     alert("게시글 작성자만 삭제 가능합니다.")
+//   }
+// }
+
+
 
 //댓글 작성
 async function post_comment(id) {
@@ -354,6 +402,24 @@ async function post_comment(id) {
   }
 }
 
+//댓글 삭제
+async function delete_comment(id) {
+  const response = await fetch(`${backend_base_url}article/comment/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    method: 'DELETE'
+
+  }
+  )
+
+  if (response.status == 200) {
+    window.location.reload();
+  } else {
+    alert("댓글 작성자만 삭제 가능합니다.")
+  }
+}
 
 // 북마크
 async function post_bookmark(id) {
@@ -478,3 +544,14 @@ async function handleLogin() {
     alert(response.status)
   }
 }
+
+
+// 로그아웃 //
+async function logout() {
+  localStorage.removeItem('payload')
+  localStorage.removeItem('access')
+  localStorage.removeItem('refresh')
+
+  window.location.replace(`${frontend_base_url}templates/login.html`)
+}
+
