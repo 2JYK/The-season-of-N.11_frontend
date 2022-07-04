@@ -34,11 +34,10 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="navbar-brand" href="/">마이페이지</a>
+      <a class="nav-link" href="./index.html"> Home </a>
       <form class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="./index.html"> Home </a>
             <a onclick="logout()" class="nav-link"> 로그아웃 </a>
           </li>
         </ul>
@@ -47,13 +46,13 @@
   </nav>
   <div class="navbar two">
     <div class="mypage-btn">
-      <button id="myposts" type="button" class="btn btn-dark" onclick="myposts()"> 내가 작성함  </button>
+      <button id="myposts" type="button" class="btn btn-dark" href="./mypage.html" onclick="mypage()"> 내가 작성함  </button>
     </div>
     <div class="mypage-btn">
       <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()"> 북마크 </button>
     </div>
   </div>
-
+  
   <!-- 게시글 시작 -->
   <ul class="post-card" id="mypage_card">
     <!-- temp_html.append -->
