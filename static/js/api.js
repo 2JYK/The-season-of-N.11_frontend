@@ -2,97 +2,81 @@
 const backend_base_url = 'http://127.0.0.1:8000'
 const frontend_base_url = 'http://127.0.0.1:5500/templates'
 
+
 // 회원가입 //
 async function handleSignup() {
-    const signupData = {
-        username: document.getElementById("floatingInput").value,
-        password: document.getElementById("floatingPassword").value,
-        email: document.getElementById("floatingInputEmail").value,
-        fullname: document.getElementById("floatingInputFullname").value,
-    }
+  const signupData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+    email: document.getElementById("floatingInputEmail").value,
+    fullname: document.getElementById("floatingInputFullname").value,
+  }
 
-    const response = await fetch(`${backend_base_url}/user/`, {
-        headers: {
-            Accept: "application/json",
-            'Content-type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(signupData)
-    })
+  const response = await fetch(`${backend_base_url}/user/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(signupData)
+  })
 
-    response_json = await response.json()
+  response_json = await response.json()
 
-    if (response.status == 200) {
-        console.log("여기", response_json)
-        window.location.replace(`${frontend_base_url}/login.html`)
-    } else {
-        console.log("여기11", response_json)
-        alert(response.status)
-    }
+  if (response.status == 200) {
+    console.log("여기", response_json)
+    window.location.replace(`${frontend_base_url}/login.html`)
+  } else {
+    console.log("여기11", response_json)
+    alert(response.status)
+  }
 }
 
 // 로그인 //
 async function handleLogin() {
-    const loginData = {
-        username: document.getElementById("floatingInput").value,
-        password: document.getElementById("floatingPassword").value,
-    }
+  const loginData = {
+    username: document.getElementById("floatingInput").value,
+    password: document.getElementById("floatingPassword").value,
+  }
 
-    const response = await fetch(`${backend_base_url}/user/api/season/token/`, {
-        headers: {
-            Accept: "application/json",
-            'Content-type': 'application/json'
-        },
-        method: "POST",
-        body: JSON.stringify(loginData)
-    })
+  const response = await fetch(`${backend_base_url}/user/api/season/token/`, {
+    headers: {
+      Accept: "application/json",
+      'Content-type': 'application/json'
+    },
+    method: "POST",
+    body: JSON.stringify(loginData)
+  })
 
-    response_json = await response.json()
-    console.log(response_json.access)
+  response_json = await response.json()
+  console.log(response_json.access)
 
-    if (response.status == 200) {
-        localStorage.setItem("access", response_json.access);
-        localStorage.setItem("refresh", response_json.refresh);
+  if (response.status == 200) {
+    localStorage.setItem("access", response_json.access);
+    localStorage.setItem("refresh", response_json.refresh);
 
-        const base64Url = response_json.access.split('.')[1];
-        const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        }).join(''));
+    const base64Url = response_json.access.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
 
-        localStorage.setItem("payload", jsonPayload);
-        window.location.replace(`${frontend_base_url}/index.html`)
-    } else {
-        alert(response.status)
-    }
+    localStorage.setItem("payload", jsonPayload);
+    window.location.replace(`${frontend_base_url}/index.html`)
+  } else {
+    alert(response.status)
+  }
 }
 
 // 로그아웃 //
 async function logout() {
-    localStorage.removeItem('payload')
-    localStorage.removeItem('access')
-    localStorage.removeItem('refresh')
+  localStorage.removeItem('payload')
+  localStorage.removeItem('access')
+  localStorage.removeItem('refresh')
 
-    window.location.replace(`${frontend_base_url}/login.html`)
+  window.location.replace(`${frontend_base_url}/login.html`)
 }
 
-
-// async function getUser() {
-//     const response = await fetch(`${backend_base_url}/user/`, {
-//         headers: {
-//             'Authorization': localStorage.getItem('access')
-//         }
-//     })
-//     console.log(response)
-
-//     if (response.status == 200) {
-//         response_json = await response.json()
-//         console.log(response_json)
-//         return response_json
-//     } else {
-//         return null
-//     }
-// }
 
 
 // 로그인한 user.id 찾는 함수
@@ -126,31 +110,32 @@ function close_modal(id) {
 
 // article, comment GET API
 function show_article() {
-    $.ajax({
-        type: 'GET',
-        url: `${backend_base_url}article/`,
-        data: {},
-        success: function (response) {
-            let postings = response
-            console.log(postings)
+  $.ajax({
+    type: 'GET',
+    url: `${backend_base_url}/article/`,
+    data: {},
+    success: function (response) {
+      let postings = response
+      // console.log(postings)
 
-            for (let i = 0; i < postings.length; i++) {
-                append_temp_html(
-                    postings[i].id,
-                    postings[i].username,
-                    postings[i].title,
-                    postings[i].content,
-                    postings[i].comments,
-                    postings[i].likes,
-                    postings[i].bookmarks
-                )
-            }
-            function append_temp_html(id, user, title, content, comments, likes, bookmarks, img) {
-                temp_html = `
+      for (let i = 0; i < postings.length; i++) {
+        append_temp_html(
+          postings[i].id,
+          postings[i].username,
+          postings[i].title,
+          postings[i].content,
+          postings[i].comments,
+          postings[i].likes,
+          postings[i].bookmarks,
+          postings[i].image
+        )
+      }
+      function append_temp_html(id, user, title, content, comments, likes, bookmarks, image) {
+        temp_html = `
           <li>
           <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
-          <div class="card-img" style="background: rgb(192, 236, 155);">
-          <!--이미지 삽입 예정-->
+          <div class="card-img" style="background: url(${backend_base_url}/${image});">
+            
           </div>
           <div class="card-body">
           <h5 class="card-title">${title}</h5>
@@ -159,9 +144,9 @@ function show_article() {
           ${content}
           </p>              
               <div class="icons">
-              <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
-              <span></span>
-              <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
+                <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes}</span></i>
+                <span></span>
+                <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
               </div>
               </div>
               </div>
@@ -180,9 +165,11 @@ function show_article() {
               
               <!-- 게시글 상세페이지 모달창 바디 -->
               <div class="popup-body">
-              <div class="popup-img" style="background: rgb(141, 206, 214);">
+              <div class="popup-img" style="
+              background: url(${backend_base_url}/${image})no-repeat center center/contain">
               <!--이미지 삽입 예정-->
               </div>
+              <div>
               <h2 class="popup-title">
               ${title}
               </h2>
@@ -191,6 +178,7 @@ function show_article() {
               ${content}
               </h5>
               <hr>
+              </div>
               </div>
               <!-- 게시글 상세페이지 모달창 댓글 output -->
               <div class="popup-comment" id="comment${id}">
@@ -210,7 +198,7 @@ function show_article() {
                     </div>
                     </li> 
                     `
-                $('#card').append(temp_html)
+        $('#card').append(temp_html)
 
         // 댓글
         for (let j = 0; j < comments.length; j++) {
@@ -218,57 +206,58 @@ function show_article() {
           <hr>`)
         }
 
-        // 좋아요
-        for (let l = 0; l < likes.length; l++) {
+        // // 좋아요
+        // for (let l = 0; l < likes.length; l++) {
 
-          let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
-          // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
+        //     let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
+        //     // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
 
-          let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
-          like_user_id = parseInt(like_user_id.slice(0, 3))
-          // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
+        //     let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
+        //     like_user_id = parseInt(like_user_id.slice(0, 3))
+        //     // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
 
-          let article_id = `${id}`  // 게시글 ID
-          article_id = parseInt(article_id.slice(0, 3))
-          // console.log('게시글 ID :', typeof (article_id), article_id)
+        //     let article_id = `${id}`  // 게시글 ID
+        //     article_id = parseInt(article_id.slice(0, 3))
+        //     // console.log('게시글 ID :', typeof (article_id), article_id)
 
-          let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
-          like_article_id = parseInt(like_article_id.slice(0, 3))
-          // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
+        //     let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
+        //     like_article_id = parseInt(like_article_id.slice(0, 3))
+        //     // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
 
-          if (now_user_id == like_user_id && article_id == like_article_id) {
-            console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
-            $(`.heart${id}`).css("color", "red");
-            $(`.heart${id}`).addClass("fa");
-            $(`.heart${id}`).removeClass("far");
-          }
-          else {
-            console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
-          }
-        }
+        //     if (now_user_id == like_user_id && article_id == like_article_id) {
+        //         console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
+        //         $(`.heart${id}`).css("color", "red");
+        //         $(`.heart${id}`).addClass("fa");
+        //         $(`.heart${id}`).removeClass("far");
+        //     }
+        //     else {
+        //         console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+        //     }
+        // }
 
-        // 북마크
-        for (let m = 0; m < bookmarks.length; m++) {
-          let now_user_id = parseJwt('access').user_id
-          console.log("user ID :", now_user_id)
+        // // 북마크
+        // for (let m = 0; m < bookmarks.length; m++) {
+        //     let now_user_id = parseJwt('access').user_id
+        //     console.log("user ID :", now_user_id)
 
-          let bookmark_user_id = `${bookmarks[m].user}`
-          bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
+        //     let bookmark_user_id = `${bookmarks[m].user}`
+        //     bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
 
-          let article_id = `${id}`
-          article_id = parseInt(article_id.slice(0, 3))
+        //     let article_id = `${id}`
+        //     article_id = parseInt(article_id.slice(0, 3))
 
-          let bookmark_article_id = `${bookmarks[m].article}`
-          bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
+        //     let bookmark_article_id = `${bookmarks[m].article}`
+        //     bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
 
-          if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
-            // $(".클래스 이름").attr("class","변경 할 클래스명");
-            $(`.bookmark${id}`).css("color", "blue");
-            $(`.bookmark${id}`).addClass("fa-bookmark");
-            $(`.bookmark${id}`).removeClass("fa-bookmark-o");
-          }
-        }
+        //     if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
+        //         // $(".클래스 이름").attr("class","변경 할 클래스명");
+        //         $(`.bookmark${id}`).css("color", "blue");
+        //         $(`.bookmark${id}`).addClass("fa-bookmark");
+        //         $(`.bookmark${id}`).removeClass("fa-bookmark-o");
+        //     }
+        // }
       }
+
     }
   });
 } show_article()
@@ -289,73 +278,64 @@ function show_article() {
 
 // 게시글 작성
 async function post_article() {
-    const title = document.getElementById("title").value
-    const content = document.getElementById("content").value
-    const style = document.getElementById('a1').value
-    const files = document.getElementById("fileUpload").files
-    const input = document.getElementById("fileUpload").files
-    console.log(title, content, style, input)
+  const title = document.getElementById("title").value
+  const content = document.getElementById("content").value
+  const style = document.getElementById('a1').value
+  const input = document.getElementById("fileUpload").files
+  console.log(title, content, style, input)
 
-    const formData = new FormData()
-    formData.append('input', input[0])
-    formData.append('title', title)
-    formData.append('content', content)
-    formData.append('style', style)
+  const formData = new FormData()
+  formData.append('input', input[0])
+  formData.append('title', title)
+  formData.append('content', content)
+  formData.append('style', style)
 
-    const articleData = {
-        title: title,
-        content: content,
-        style: style,
-    }
-    console.log(articleData)
-    formData.append('articleData', articleData)
+  const response = await fetch(`${backend_base_url}/article/`, {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Authorization': 'Bearer ' + localStorage.getItem("access")
+    },
+    method: 'POST',
+    body: formData
+  }
+  )
 
-    const response = await fetch(`${backend_base_url}/article/`, {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Authorization': 'Bearer ' + localStorage.getItem("access")
-        },
-        method: 'POST',
-        body: formData
-    }
-    )
-
-    if (response.status == 200) {
-        window.location.replace(`${frontend_base_url}/`);
-    } else {
-        alert(response.status);
-    }
+  if (response.status == 200) {
+    window.location.replace(`${frontend_base_url}/`);
+  } else {
+    alert(response.status);
+  }
 }
 
 
 //댓글 작성
 async function post_comment(id) {
-    const content = document.getElementById("comment_input" + id).value
-    const commentData = {
-        "article": id,
-        "content": content
-    }
-    
-    const response = await fetch(`${backend_base_url}article/comment/`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': "Bearer " + localStorage.getItem("access")
-        },
-        body: JSON.stringify(commentData)
-    }
-    )
-
-    if (response.status == 200) {
-      // refresh(id)
-      window.location.reload();
-
-      return response
-
-    } else {
-        alert(response.status)
-    }
+  const content = document.getElementById("comment_input" + id).value
+  const commentData = {
+    "article": id,
+    "content": content
   }
+
+  const response = await fetch(`${backend_base_url}/article/comment/`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    body: JSON.stringify(commentData)
+  }
+  )
+
+  if (response.status == 200) {
+    // refresh(id)
+    window.location.reload();
+
+    return response
+
+  } else {
+    alert(response.status)
+  }
+}
 
 
 // 북마크
@@ -363,7 +343,7 @@ async function post_bookmark(id) {
   const bookmarkData = {
     "article": id,
   }
-  const response = await fetch(`${backend_base_url}article/bookmark/`, {
+  const response = await fetch(`${backend_base_url}/article/bookmark/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -393,7 +373,7 @@ async function post_like(id) {
   const likeData = {
     "article": id,
   }
-  const response = await fetch(`${backend_base_url}article/like/`, {
+  const response = await fetch(`${backend_base_url}/article/like/`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -412,72 +392,5 @@ async function post_like(id) {
   } else {
     alert("좋아요를 취소 하셨습니다.")
     window.location.reload()
-  }
-}
-
-
-// 회원가입 //
-async function handleSignup() {
-  const signupData = {
-    username: document.getElementById("floatingInput").value,
-    password: document.getElementById("floatingPassword").value,
-    email: document.getElementById("floatingInputEmail").value,
-    fullname: document.getElementById("floatingInputFullname").value,
-  }
-
-  const response = await fetch(`http://127.0.0.1:8000/user/`, {
-    headers: {
-      Accept: "application/json",
-      'Content-type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify(signupData)
-  })
-
-  response_json = await response.json()
-
-  if (response.status == 200) {
-    console.log("여기", response_json)
-    window.location.replace(`http://127.0.0.1:5500/templates/login.html`)
-  } else {
-    console.log("여기11", response_json)
-    alert(response.status)
-  }
-}
-
-
-// 로그인 //
-async function handleLogin() {
-  const loginData = {
-    username: document.getElementById("floatingInput").value,
-    password: document.getElementById("floatingPassword").value,
-  }
-
-  const response = await fetch(`http://127.0.0.1:8000/user/api/token/`, {
-    headers: {
-      Accept: "application/json",
-      'Content-type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify(loginData)
-  })
-
-  response_json = await response.json()
-  console.log(response_json.access)
-
-  if (response.status == 200) {
-    localStorage.setItem("access", response_json.access);
-    localStorage.setItem("refresh", response_json.refresh);
-
-    const base64Url = response_json.access.split('.')[1];
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
-      return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    localStorage.setItem("payload", jsonPayload);
-    window.location.replace(`http://127.0.0.1:5500/templates/index.html`)
-  } else {
-    alert(response.status)
   }
 }

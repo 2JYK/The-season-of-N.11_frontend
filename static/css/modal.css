@@ -49,10 +49,7 @@
 }
 
 
-.imgs1,
-.imgs2,
-.imgs3,
-.imgs4 {
+.imgs {
     background-color: blueviolet;
     width: 150px;
     height: 150px;
@@ -145,20 +142,16 @@
 
 /* 모달창 바디 */
 .popup-body {
-    padding-right: 15%;
-    padding-left: 15%;
+    /* padding-right: 15%;
+    padding-left: 15%; */
 
     text-align: center;
 }
 
 .popup-img {
-    width: 35%;
     height: 400px;
-
     margin: auto;
     margin-bottom: 2%;
-    background-size: cover;
-    background-position: center;
 }
 
 .popup-content {

@@ -13,10 +13,18 @@
 
 .active {
     display: flex;
+    padding: 2px;
 }
 
 .navbar {
     z-index: 1;
+}
+
+.btn {
+    background: transparent;
+    border: none;
+    color: black;
+    /* margin-left: 300px; */
 }
 
 .search {
