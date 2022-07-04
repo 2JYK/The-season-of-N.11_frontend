@@ -7,8 +7,7 @@
 
     margin: 0px;
     padding: 0px;
-
-    color: black;
+    color: rgb(49, 49, 49);
 }
 
 .active {
@@ -17,7 +16,17 @@
 }
 
 .navbar {
+    /* background: rgba(207, 255, 95, 0.089); */
+    background: rgba(0, 162, 255, 0.062);
     z-index: 1;
+}
+
+.navbar-brand {
+    background: url(../css/img/logo.png);
+    background-position: center;
+    background-size: cover;
+    width: 200px;
+    height: 60px;
 }
 
 .btn {

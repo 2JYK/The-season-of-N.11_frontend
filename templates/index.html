@@ -31,14 +31,15 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="/">로고</a>
+      <div class="navbar-brand"></div>
+      <!-- <h4 class="third"><span>The-season<br>2JYK</span></h4> -->
       <form class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="./mypage.html" onclick="mypage(${id})">My Page</a>
-            <a class="nav-link" onclick="logout()"> 로그아웃 </a>
+            <a class="nav-link" href="./mypage.html" onclick="mypage()">My Page</a>
+            <a class="nav-link" href="#"onclick="logout()"> 로그아웃 </a>
             <a class="nav-link"> <button id="modal_open" type="button" class="btn btn-dark upload-btn">Upload</button> </a>
           </li>
         </ul>
@@ -109,7 +110,6 @@
     </div>
 
 
-
     <!-- 게시글 시작 -->
   <ul class="post-card" id="card">
     <!-- temp_html.append -->
@@ -122,4 +122,3 @@
 </body>
 
 </html>
-
