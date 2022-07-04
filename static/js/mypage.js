@@ -154,8 +154,8 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
       <!-- 게시글 상세페이지 모달창 헤더 : 수정 및 삭제 -->
       <div class="popup-header">
       <span></span>
-      <i type="dutton" onclick="edit_post(${id})" class="fa-solid fa-pen-to-square"></i>
-      <i type="dutton" onclick="delete_post(${id})" class="fa-solid fa-trash-can"></i>
+      <i type="dutton" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
+      <i type="dutton" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
       <span></span>
       <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
       </div>
@@ -289,27 +289,22 @@ function mypage() {
 } mypage()
 
 
-// 내 게시글 수정 //
-// async function patchArticle(id, title, content){
-//   const articleData = {
-//       "title": title,
-//       "content":content
-//   }
 
-//   const response = await fetch(`${back_base_url}article/${id}`,{
-//       headers:{
-//           'Authorization':localStorage.getItem("token")},
-//       method:'PATCH',
-//       body: JSON.stringify(articleData)
-//   }
-//   )
+//게시글 삭제 //
+async function delete_article(id) {
+  const response = await fetch(`${back_base_url}article/${id}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    method: 'DELETE'
+  }
+  )
 
-
-//   if (response.status ==200){
-//       response_json = await response.json()
-//       return response_json
-//   }else{
-//       alert(response.status)
-//   }
-
-// }
+  if (response.status == 200) {
+    window.location.reload();
+  
+  } else {
+    alert("게시글 작성자만 삭제 가능합니다.")
+  }
+}
