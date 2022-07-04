@@ -28,7 +28,7 @@
   <link rel="stylesheet" href="../static/css/style.css">
   <link rel="stylesheet" href="../static/css/nav.css">
   <link rel="stylesheet" href="../static/css/modal.css">
-
+  <link rel="stylesheet" href="../static/css/mypage.css">
 </head>
 
 <body>
@@ -49,6 +49,14 @@
       </form>
     </div>
   </nav>
+  <div class="navbar two">
+    <div class="mypage-btn">
+      <button id="myposts" type="button" class="btn btn-dark" onclick="myposts()"> 내가 작성함  </button>
+    </div>
+    <div class="mypage-btn">
+      <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()"> 북마크 </button>
+    </div>
+  </div
 
     <!-- 게시글 시작 -->
   <ul class="post-card" id="card">
