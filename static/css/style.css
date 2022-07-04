@@ -11,6 +11,11 @@
     color: black;
 }
 
+body {
+    /* background: rgba(0, 162, 255, 0.062); */
+    background: rgb(235, 235, 235);
+}
+
 /* 포스트 카드 */
 .upload-btn {
     padding-top: 1%;
@@ -33,6 +38,12 @@
     flex: 1;
     height: auto;
     margin: 20% auto auto 10%;
+}
+
+.card-box {
+    /* border: 7px solid rgba(128, 128, 128, 0.171); */
+    border: 5px solid rgba(134, 72, 1, 0.562);
+    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541);
 }
 
 .card {
@@ -58,7 +69,7 @@
     justify-content: space-around;
 
     padding: 3%;
-
+    background: white;
     border-bottom: 1px solid rgba(0, 0, 0, .125);
     border-left: 1px solid rgba(0, 0, 0, .125);
     border-right: 1px solid rgba(0, 0, 0, .125);

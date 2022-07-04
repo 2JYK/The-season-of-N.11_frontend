@@ -152,6 +152,7 @@ function show_article() {
             function append_temp_html(id, user, title, content, comments, likes, bookmarks, image) {
                 temp_html = `
               <li>
+              <div class="card-box">
               <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
               <div class="card-img" style="background: 
               url(${backend_base_url}${image}) no-repeat center center/contain;">
@@ -210,6 +211,7 @@ function show_article() {
               <button class="popup-post-input-btn" onclick="post_comment(${id})">
               저장
               </button>
+              </div>
               </div>
               </div>
               </div>
