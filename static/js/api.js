@@ -79,7 +79,8 @@ async function logout() {
 }
 
 
-// 로그인한 user.id 찾는 함수 //
+
+// 로그인한 user.id 찾는 함수
 function parseJwt(token) {
     var base64Url = localStorage.getItem("access").split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -117,11 +118,14 @@ function open_modal(id) {
 }
 
 function close_modal(id) {
+
     // id 파라미터가 str값 으로 넘어와서 slice하고 int로 변환
     parse_int = parseInt(id.slice(1)) // 변수명 바꿔야 함
     function modal_close() {
         $("#popup" + parse_int).fadeOut(); //페이드아웃
     }
+ 
+    
 
     $("#close" + parse_int)
     modal_close(); //모달 닫기);
@@ -166,7 +170,7 @@ function show_article() {
               </div>
               
               <div class="icons">
-              <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes}</span></i>
+              <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
               <span></span>
               <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
               </div>
@@ -231,55 +235,55 @@ function show_article() {
                 }
 
                 // 좋아요
-                // for (let l = 0; l < likes.length; l++) {
+                 for (let l = 0; l < likes.length; l++) {
 
-                //     let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
-                //     // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
+                     let now_user_id = parseJwt('access').user_id  // 로그인한 유저 ID
+                     // console.log('로그인한 유저 ID :', typeof (now_user_id), now_user_id)
 
-                //     let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
-                //     like_user_id = parseInt(like_user_id.slice(0, 3))
-                //     // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
+                     let like_user_id = `${likes[l].user}` // like 테이블 유저 ID
+                     like_user_id = parseInt(like_user_id.slice(0, 3))
+                     // console.log('like 테이블 유저 ID 속성 :', typeof (like_user_id), like_user_id)
 
-                //     let article_id = `${id}`  // 게시글 ID
-                //     article_id = parseInt(article_id.slice(0, 3))
-                //     // console.log('게시글 ID :', typeof (article_id), article_id)
+                     let article_id = `${id}`  // 게시글 ID
+                     article_id = parseInt(article_id.slice(0, 3))
+                     // console.log('게시글 ID :', typeof (article_id), article_id)
 
-                //     let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
-                //     like_article_id = parseInt(like_article_id.slice(0, 3))
-                //     // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
+                     let like_article_id = `${likes[l].article}` // like 테이블 게시글 ID
+                     like_article_id = parseInt(like_article_id.slice(0, 3))
+                     // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
 
-                //     if (now_user_id == like_user_id && article_id == like_article_id) {
-                //         console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
-                //         $(`.heart${id}`).css("color", "red");
-                //         $(`.heart${id}`).addClass("fa");
-                //         $(`.heart${id}`).removeClass("far");
-                //     }
-                //     else {
-                //         console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
-                //     }
-                // }
+                     if (now_user_id == like_user_id && article_id == like_article_id) {
+                         console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
+                         $(`.heart${id}`).css("color", "red");
+                         $(`.heart${id}`).addClass("fa");
+                         $(`.heart${id}`).removeClass("far");
+                     }
+                     else {
+                         console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+                     }
+                 }
 
-                // // 북마크
-                // for (let m = 0; m < bookmarks.length; m++) {
-                //     let now_user_id = parseJwt('access').user_id
-                //     console.log("user ID :", now_user_id)
+                 // 북마크
+                 for (let m = 0; m < bookmarks.length; m++) {
+                     let now_user_id = parseJwt('access').user_id
+                     console.log("user ID :", now_user_id)
 
-                //     let bookmark_user_id = `${bookmarks[m].user}`
-                //     bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
+                     let bookmark_user_id = `${bookmarks[m].user}`
+                     bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
 
-                //     let article_id = `${id}`
-                //     article_id = parseInt(article_id.slice(0, 3))
+                     let article_id = `${id}`
+                     article_id = parseInt(article_id.slice(0, 3))
 
-                //     let bookmark_article_id = `${bookmarks[m].article}`
-                //     bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
+                     let bookmark_article_id = `${bookmarks[m].article}`
+                     bookmark_article_id = parseInt(bookmark_article_id.slice(0, 3))
 
-                //     if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
-                //         // $(".클래스 이름").attr("class","변경 할 클래스명");
-                //         $(`.bookmark${id}`).css("color", "blue");
-                //         $(`.bookmark${id}`).addClass("fa-bookmark");
-                //         $(`.bookmark${id}`).removeClass("fa-bookmark-o");
-                //     }
-                // }
+                     if (now_user_id == bookmark_user_id && article_id == bookmark_article_id) {
+                         // $(".클래스 이름").attr("class","변경 할 클래스명");
+                         $(`.bookmark${id}`).css("color", "blue");
+                         $(`.bookmark${id}`).addClass("fa-bookmark");
+                         $(`.bookmark${id}`).removeClass("fa-bookmark-o");
+                     }
+                 }
             }
         }
     });
@@ -389,7 +393,7 @@ async function delete_comment(id) {
 }
 
 
-// 북마크 //
+// 북마크
 async function post_bookmark(id) {
     const bookmarkData = {
         "article": id,
@@ -405,7 +409,6 @@ async function post_bookmark(id) {
     )
     response_json = await response.json()
     console.log('북마크', response_json)
-
 
     if (response.status == 200) {
         alert("북마크가 되었습니다")
@@ -435,11 +438,11 @@ async function post_like(id) {
     )
     response_json = await response.json()
 
-
     if (response.status == 200) {
         alert("좋아요를 하셨습니다")
         window.location.reload()
         return response
+
     } else {
         alert("좋아요를 취소 하셨습니다.")
         window.location.reload()
