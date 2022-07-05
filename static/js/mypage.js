@@ -16,7 +16,7 @@ function parseJwt(token) {
 
 
 // 북마크 append 부분 //
-function bookmark_info(id, username, title, content, comments, image) {
+function bookmark_info(id, user, title, content, comments, image) {
     temp_html = `
     <li>
         <div class="card-box">
@@ -40,7 +40,7 @@ function bookmark_info(id, username, title, content, comments, image) {
                     <!-- 게시글 상세페이지 모달창 헤더 -->
                     <div class="popup-header">
                         <span></span>
-                        <h2>${username} 님의 게시물</h2>
+                        <h2>${user} 님의 게시물</h2>
                         <span></span>
                         <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
                     </div>
