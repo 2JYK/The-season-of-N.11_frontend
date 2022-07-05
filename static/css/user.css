@@ -98,6 +98,12 @@ body::before {
     bottom: 350px;
 }
 
+@media screen and (max-height:800px) {
+    .sign-logo {
+        bottom: 250px;
+    }
+}
+
 .sign h1 {
     font-size: 32px;
     color: black;
