@@ -126,7 +126,6 @@ function bookmark() {
 };
 
 
-
 // 마이 페이지 //
 function append_mypage_html(id, username, title, content, comments, likes, bookmarks, image) {
   temp_html = `
@@ -156,24 +155,29 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
       <!-- 게시글 상세페이지 모달창 헤더 : 수정 및 삭제 -->
       <div class="popup-header">
       <span></span>
-      <i type="dutton" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
-      <i type="dutton" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
+      <i type="button" id="update_button" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
+      <i type="button" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
       <span></span>
-      <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
+      <i type="button" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
       </div>
       
       <!-- 게시글 상세페이지 모달창 바디 -->
-      <div class="popup-body">
+      <div class="popup-body"> 
+      
       <div class="popup-img" style="background: url(${back_base_url}${image}) no-repeat center center/contain;">
       </div>
-      <h2 class="popup-title">
-      ${title}
-      </h2>
-      <hr>
-      <h5 class="popup-content">
-      ${content}
-      </h5>
-      <hr>
+
+      <!-- 게시글 수정 구간 -->
+      <div id="edit">
+        <h2 class="popup-title" id="title">
+        ${title}
+        </h2>
+        <hr>
+        <h5 class="popup-content" id="content">
+        ${content}
+        </h5>
+        <hr>
+      </div>
       </div>
 
       <!-- 게시글 상세페이지 모달창 댓글 output -->
@@ -199,7 +203,7 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
   for (let j = 0; j < comments.length; j++) {
     let time_post = new Date(comments[j].modlfied_time)
     let time_before = time2str(time_post)
-    console.log("댓글 time post :", time_post)
+    // console.log("댓글 time post :", time_post)
 
     $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
             &nbsp &nbsp &nbsp &nbsp &nbsp
@@ -226,20 +230,20 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
     // console.log('like 테이블 게시글 ID :', typeof (like_article_id), like_article_id)
 
     if (now_user_id == like_user_id && article_id == like_article_id) {
-      console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
+      // console.log('ㅡㅡㅡㅡㅡ 성공 ㅡㅡㅡㅡㅡ')
       $(`.heart${id}`).css("color", "red");
       $(`.heart${id}`).addClass("fa");
       $(`.heart${id}`).removeClass("far");
     }
     else {
-      console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
+      // console.log('ㅡㅡㅡㅡㅡ 실패 ㅡㅡㅡㅡㅡ')
     }
   }
 
   // 북마크 //
   for (let m = 0; m < bookmarks.length; m++) {
     let now_user_id = parseJwt('access').user_id
-    console.log("user ID :", now_user_id)
+    // console.log("user ID :", now_user_id)
 
     let bookmark_user_id = `${bookmarks[m].user}`
     bookmark_user_id = parseInt(bookmark_user_id.slice(0, 3))
@@ -290,10 +294,70 @@ function mypage() {
 } mypage()
 
 
+// 게시글 수정버튼 -> 수정 상태로 변경 //
+function edit_article(id) {
+  const title = document.getElementById("title")
+  const content = document.getElementById("content")
 
-//게시글 삭제 //
-async function delete_article(id) {
-  const response = await fetch(`${back_base_url}article/${id}`, {
+  article_id = id
+
+  title.style.visibility = "hidden"
+  content.style.visibility = "hidden"
+
+  const input_title = document.createElement("textarea")
+  input_title.setAttribute("id", "input_title")
+  input_title.innerText = title.innerHTML
+
+  const input_content = document.createElement("textarea")
+  input_content.setAttribute("id", "input_content")
+  input_content.innerText = content.innerHTML
+  input_content.rows = 10
+
+  const body = document.getElementById("edit")
+  body.insertBefore(input_title, title)
+  body.insertBefore(input_content, content)
+
+  const update_button = document.getElementById("update_button")
+  update_button.setAttribute("onclick", "updateArticle(article_id)")
+}
+
+
+async function updateArticle(id) {
+  var input_title = document.getElementById("input_title")
+  var input_content = document.getElementById("input_content")
+
+  const article = await patchArticle(id, input_title.value, input_content.value);
+}
+
+// 게시글 수정 -> 수정 내용 적용 //
+async function patchArticle(article_id, title, content) {
+  const articleData = {
+    "title": title,
+    "content": content
+  }
+
+  const response = await fetch(`${back_base_url}article/${article_id}/`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': "Bearer " + localStorage.getItem("access")
+    },
+    body: JSON.stringify(articleData)
+  }
+  )
+
+  if (response.status == 200) {
+    window.location.reload();
+
+  } else {
+    alert("게시글 작성자만 수정 가능합니다.")
+  }
+}
+
+
+// 게시글 삭제 //
+async function delete_article(article_id) {
+  const response = await fetch(`${back_base_url}article/${article_id}`, {
     headers: {
       'Content-Type': 'application/json',
       'Authorization': "Bearer " + localStorage.getItem("access")
