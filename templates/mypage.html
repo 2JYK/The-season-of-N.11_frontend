@@ -23,6 +23,9 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
 
+  <!-- 반응형 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <title>index</title>
 
   <link rel="stylesheet" href="../static/css/style.css">
@@ -34,11 +37,13 @@
 <body>
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container">
-      <a class="nav-link" href="./index.html"> Home </a>
+      <div class="navbar-brand">
+      <a class="nav-link" href="./index.html"></a></div>
+
       <form class="form-inline my-2 my-lg-0">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a onclick="logout()" class="nav-link"> 로그아웃 </a>
+            <a class="nav-link" id="link-logout" href="#" onclick="logout()"> 로그아웃 </a>
           </li>
         </ul>
       </form>
@@ -46,10 +51,14 @@
   </nav>
   <div class="navbar two">
     <div class="mypage-btn">
-      <button id="myposts" type="button" class="btn btn-dark" href="./mypage.html" onclick="mypage()"> 내가 작성함  </button>
+      <button id="myposts" type="button" class="btn btn-dark" href="./mypage.html" onclick="mypage()">
+        <i class="fa-regular fa-images"></i>
+      </button>
     </div>
     <div class="mypage-btn">
-      <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()"> 북마크 </button>
+      <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()">
+        <i class="fa-regular fa-bookmark" ></i>
+      </button>
     </div>
   </div>
   

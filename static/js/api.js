@@ -151,26 +151,23 @@ function show_article() {
             }
             function append_temp_html(id, user, title, content, comments, likes, bookmarks, image) {
                 temp_html = `
-              <li>
+            <li>
               <div class="card-box">
-              <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
-              <div class="card-img" style="background: 
-              url(${backend_base_url}${image}) no-repeat center center/contain;">
-              </div>
-              <div class="card-body">
-              <h5 class="card-title">${title}</h5>
-              <hr>
-              <p class="card-text">
-              ${content}
-              </p>
-              </div>
-              </div>
+                <div class="card" id="${id}" onClick="open_modal(this.id)">
+                    <div class="card-img" style="background: url(${backend_base_url}${image}) no-repeat center center/contain;"></div>
+                    <div class="card-body">
+                        <h5 class="card-title">${title}</h5>
+                            <hr>
+                        <p class="card-text">${content}</p>
+                    </div>
+                    <div class="icons">
+                        <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
+                            <span></span>
+                        <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
+                    </div>
+                </div>
               
-              <div class="icons">
-              <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
-              <span></span>
-              <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
-              </div>
+              
               
               <!-- 게시글 상세페이지 모달 -->
               <div class="popup-wrap" id="popup${id}">
@@ -215,7 +212,7 @@ function show_article() {
               </div>
               </div>
               </div>
-              </li> 
+            </li> 
               `
                 $('#card').append(temp_html)
 
