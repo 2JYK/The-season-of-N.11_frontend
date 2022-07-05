@@ -128,6 +128,7 @@ function bookmark() {
 
 // 마이 페이지 //
 function append_mypage_html(id, username, title, content, comments, likes, bookmarks, image) {
+  $('.popup-comment').empty()
   temp_html = `
       <li>
       <div class="card" style="width: 18rem;" id="${id}" onClick="open_modal(this.id)">
@@ -155,7 +156,7 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
       <!-- 게시글 상세페이지 모달창 헤더 : 수정 및 삭제 -->
       <div class="popup-header">
       <span></span>
-      <i type="button" id="update_button" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
+      <i type="button" id="update_button(${id})" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
       <i type="button" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
       <span></span>
       <i type="button" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
@@ -168,12 +169,12 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
       </div>
 
       <!-- 게시글 수정 구간 -->
-      <div id="edit">
-        <h2 class="popup-title" id="title">
+      <div id="edit(${id})">
+        <h2 class="popup-title" id="title(${id})">
         ${title}
         </h2>
         <hr>
-        <h5 class="popup-content" id="content">
+        <h5 class="popup-content" id="content(${id})">
         ${content}
         </h5>
         <hr>
@@ -296,10 +297,11 @@ function mypage() {
 
 // 게시글 수정버튼 -> 수정 상태로 변경 //
 function edit_article(id) {
-  const title = document.getElementById("title")
-  const content = document.getElementById("content")
+  const title = document.getElementById(`title(${id})`)
+  const content = document.getElementById(`content(${id})`)
 
   article_id = id
+  console.log(article_id)
 
   title.style.visibility = "hidden"
   content.style.visibility = "hidden"
@@ -313,12 +315,14 @@ function edit_article(id) {
   input_content.innerText = content.innerHTML
   input_content.rows = 10
 
-  const body = document.getElementById("edit")
+  const body = document.getElementById(`edit(${id})`)
   body.insertBefore(input_title, title)
   body.insertBefore(input_content, content)
-
-  const update_button = document.getElementById("update_button")
-  update_button.setAttribute("onclick", "updateArticle(article_id)")
+  // console.log(body)
+  const update_button = document.getElementById(`update_button(${id})`)
+  console.log(`update_button(${id})`)
+  console.log(update_button)
+  update_button.setAttribute("onclick", `updateArticle(${id})`)
 }
 
 
@@ -327,6 +331,7 @@ async function updateArticle(id) {
   var input_content = document.getElementById("input_content")
 
   const article = await patchArticle(id, input_title.value, input_content.value);
+
 }
 
 // 게시글 수정 -> 수정 내용 적용 //
