@@ -1,188 +1,208 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Type" content="text/html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- 반응형 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-            integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- 반응형 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-            crossorigin="anonymous"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+  <!-- JQuery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
 
-        <!-- Add icon library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
-        
-        <title>index</title>
+  <!-- 구글폰트 -->
+  <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 
-        <link rel="stylesheet" href="../static/css/style.css">
-        <link rel="stylesheet" href="../static/css/nav.css">
-        <link rel="stylesheet" href="../static/css/modal.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <div class="container">
-                <div class="navbar-brand"><a class="nav-link" href="./index.html"></a></div>
-                <form class="form-inline my-2 my-lg-0">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" id="link-upload"> 
-                                <button id="modal_open" type="button" class="btn btn-dark upload-btn">Upload</button> 
-                            </a>
-                            <a class="nav-link" id="link-mypage" href="./mypage.html" onclick="mypage()">My Page</a>
-                            <a class="nav-link" id="link-logout" href="#" onclick="logout()"> 로그아웃 </a>
-                        </li>
-                    </ul>
-                </form>
-            </div>
-        </nav>
+  <!-- Add icon library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
 
-        <!--  Modal start -->
-        <div id="myModal" class="modal">
-            <!-- Modal content -->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <span></span>
-                    <h3>원하는 스타일의 이미지를 선택해주세요.</h3>
-                    <span class="close">&times;</span>
-                </div>
-                <div class="d-flex flex-row bd-highlight" id="style-imgs">
-                  <div class="style-imgs">
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a1" value="eccv16/composition_vii.t7" />
-                      <label for="a1">              
-                        <span>
-                          <img class="imgs" id="a1" src="https://img.artnshop.net/thumbnail/thumb_20200129222337_026_composition_vii.jpg" 
-                          alt="eccv16/composition_vii.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a2" value="eccv16/la_muse.t7" />
-                      <label for="a2">              
-                        <span>
-                          <img class="imgs" id="a2" src="https://i.pinimg.com/originals/45/e1/c2/45e1c21835ef2bd9b0f4b1a9a0a6ad98.jpg" 
-                          alt="eccv16/la_muse.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image"id="a3" value="eccv16/starry_night.t7" />
-                      <label for="a3">              
-                        <span>
-                          <img class="imgs" id="a3" src="https://mblogthumb-phinf.pstatic.net/20150819_100/iamundine_1439970779216WcILD_JPEG/%BA%B0%C0%CC_%BA%FB%B3%AA%B4%C2_%B9%E3.jpg?type=w2" 
-                          alt="eccv16/starry_night.t7">
-                        </span>
-                      </label> 
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a4" value="eccv16/the_wave.t7" />
-                      <label for="a4">              
-                        <span>
-                          <img class="imgs" id="a4" src="https://raw.githubusercontent.com/KerasKorea/KEKOxTutorial/master/media/48_8.jpg" 
-                          alt="eccv16/the_wave.t7">
-                        </span>
-                      </label> 
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a5" value="instance_norm/candy.t7" />
-                      <label for="a5">              
-                        <span>
-                          <img class="imgs" id="a5" src="http://1.bp.blogspot.com/-jNu7GnD9LZk/UhXwYCOgHRI/AAAAAAAAASs/bpZEy6_21Vg/s1600/%D0%9C%D0%BE%D0%B4%D0%B5%D1%80%D0%BD.jpg" 
-                          alt="instance_norm/candy.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a6" value="instance_norm/feathers.t7" />
-                      <label for="a6">              
-                        <span>
-                          <img class="imgs" id="a6" src="https://i0.wp.com/bytefreaks.net/wp-content/uploads/2019/04/feathers-leaves-petals-sm.jpeg?w=400&ssl=1" 
-                          alt="instance_norm/feathers.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a7" value="instance_norm/la_muse.t7" />
-                      <label for="a7">              
-                        <span>
-                          <img class="imgs" id="a7" src="https://i.pinimg.com/originals/45/e1/c2/45e1c21835ef2bd9b0f4b1a9a0a6ad98.jpg" 
-                          alt="instance_norm/la_muse.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a8" value="instance_norm/mosaic.t7" />
-                      <label for="a8">              
-                        <span>
-                          <img class="imgs" id="a8" src="https://jkoushik.me/neural-style/imgs/style/fulls/stained_glass.jpg" 
-                          alt="instance_norm/mosaic.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a9" value="instance_norm/starry_night.t7" />
-                      <label for="a9">              
-                        <span>
-                          <img class="imgs" id="a9" src="http://uart.kr/web/upload/NNEditor/20200205/Vincent20Van20Gogh20-20Starry20Night20Over20the20Rhone-2.jpg" 
-                          alt="instance_norm/starry_night.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                    <input type="checkbox" class="input_image" id="a10" value="instance_norm/the_scream.t7" />
-                      <label for="a10">              
-                        <span>
-                          <img class="imgs" id="a10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2021/02/23/105572552.4.jpg" 
-                          alt="instance_norm/the_scream.t7">
-                        </span>
-                      </label>
-                    </div>
-                    <div class="imgbox">
-                      <input type="checkbox" class="input_image" id="a11" value="instance_norm/udnie.t7" />
-                      <label for="a11">              
-                        <span>
-                          <img class="imgs" id="a11" src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Francis_Picabia%2C_1913%2C_Udnie_%28Young_American_Girl%2C_The_Dance%29%2C_oil_on_canvas%2C_290_x_300_cm%2C_Mus%C3%A9e_National_d%E2%80%99Art_Moderne%2C_Centre_Georges_Pompidou%2C_Paris..jpg/600px-Francis_Picabia%2C_1913%2C_Udnie_%28Young_American_Girl%2C_The_Dance%29%2C_oil_on_canvas%2C_290_x_300_cm%2C_Mus%C3%A9e_National_d%E2%80%99Art_Moderne%2C_Centre_Georges_Pompidou%2C_Paris..jpg" 
-                          alt="instance_norm/udnie.t7">
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <div class="filebox">
-                    <input type="file" id="fileUpload" class="real-upload" accept="image/*" required multiple />
-                    <input class="upload-name" value="" />
-                    <label for="fileUpload">파일 찾기</label>
-                </div>
-                <div class="write">
-                    <input class="title" id="title" placeholder="제목을 입력해주세요. (30자)" /><br>
-                    <textarea class="content" id="content" placeholder="내용을 입력해주세요. (100자)"></textarea>
-                </div>  
-                <div class="result-btn upload">
-                    <button id="result" type="button" class="btn btn-dark" onclick="post_article()">👉 결과 보러가기! 👈</button>
-                </div>
-            </div>
-        </div>
-        <!--  Modal end -->
+  <title>index</title>
 
-            <!-- 게시글 시작 -->
-        <ul class="post-card" id="card">
-            <!-- temp_html.append -->
+  <link rel="stylesheet" href="../static/css/style.css">
+  <link rel="stylesheet" href="../static/css/nav.css">
+  <link rel="stylesheet" href="../static/css/modal.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <div class="navbar-brand"><a class="nav-link" href="./index.html"></a></div>
+      <form class="form-inline my-2 my-lg-0">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" id="link-upload">
+              <button id="modal_open" type="button" class="btn btn-dark upload-btn">Upload</button>
+            </a>
+            <a class="nav-link" id="link-mypage" href="./mypage.html" onclick="mypage()">My Page</a>
+            <a class="nav-link" id="link-logout" href="#" onclick="logout()"> 로그아웃 </a>
+          </li>
         </ul>
+      </form>
+    </div>
+  </nav>
 
-        <script src="../static/js/modal.js"></script>
-        <script src="../static/js/api.js"></script>
-    </body>
+  <!--  Modal start -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <div class="modal-header">
+        <span></span>
+        <h3>원하는 스타일의 이미지를 선택해주세요.</h3>
+        <span class="close">&times;</span>
+      </div>
+      <div class="d-flex flex-row bd-highlight" id="style-imgs">
+        <div class="style-imgs">
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a1" value="eccv16/composition_vii.t7" />
+            <label for="a1">
+              <span>
+                <img class="imgs" id="a1"
+                  src="https://img.artnshop.net/thumbnail/thumb_20200129222337_026_composition_vii.jpg"
+                  alt="eccv16/composition_vii.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a2" value="eccv16/la_muse.t7" />
+            <label for="a2">
+              <span>
+                <img class="imgs" id="a2"
+                  src="https://i.pinimg.com/originals/45/e1/c2/45e1c21835ef2bd9b0f4b1a9a0a6ad98.jpg"
+                  alt="eccv16/la_muse.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a3" value="eccv16/starry_night.t7" />
+            <label for="a3">
+              <span>
+                <img class="imgs" id="a3"
+                  src="https://mblogthumb-phinf.pstatic.net/20150819_100/iamundine_1439970779216WcILD_JPEG/%BA%B0%C0%CC_%BA%FB%B3%AA%B4%C2_%B9%E3.jpg?type=w2"
+                  alt="eccv16/starry_night.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a4" value="eccv16/the_wave.t7" />
+            <label for="a4">
+              <span>
+                <img class="imgs" id="a4"
+                  src="https://raw.githubusercontent.com/KerasKorea/KEKOxTutorial/master/media/48_8.jpg"
+                  alt="eccv16/the_wave.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a5" value="instance_norm/candy.t7" />
+            <label for="a5">
+              <span>
+                <img class="imgs" id="a5"
+                  src="http://1.bp.blogspot.com/-jNu7GnD9LZk/UhXwYCOgHRI/AAAAAAAAASs/bpZEy6_21Vg/s1600/%D0%9C%D0%BE%D0%B4%D0%B5%D1%80%D0%BD.jpg"
+                  alt="instance_norm/candy.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a6" value="instance_norm/feathers.t7" />
+            <label for="a6">
+              <span>
+                <img class="imgs" id="a6"
+                  src="https://i0.wp.com/bytefreaks.net/wp-content/uploads/2019/04/feathers-leaves-petals-sm.jpeg?w=400&ssl=1"
+                  alt="instance_norm/feathers.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a7" value="instance_norm/la_muse.t7" />
+            <label for="a7">
+              <span>
+                <img class="imgs" id="a7"
+                  src="https://i.pinimg.com/originals/45/e1/c2/45e1c21835ef2bd9b0f4b1a9a0a6ad98.jpg"
+                  alt="instance_norm/la_muse.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a8" value="instance_norm/mosaic.t7" />
+            <label for="a8">
+              <span>
+                <img class="imgs" id="a8" src="https://jkoushik.me/neural-style/imgs/style/fulls/stained_glass.jpg"
+                  alt="instance_norm/mosaic.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a9" value="instance_norm/starry_night.t7" />
+            <label for="a9">
+              <span>
+                <img class="imgs" id="a9"
+                  src="http://uart.kr/web/upload/NNEditor/20200205/Vincent20Van20Gogh20-20Starry20Night20Over20the20Rhone-2.jpg"
+                  alt="instance_norm/starry_night.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a10" value="instance_norm/the_scream.t7" />
+            <label for="a10">
+              <span>
+                <img class="imgs" id="a10" src="https://dimg.donga.com/wps/NEWS/IMAGE/2021/02/23/105572552.4.jpg"
+                  alt="instance_norm/the_scream.t7">
+              </span>
+            </label>
+          </div>
+          <div class="imgbox">
+            <input type="checkbox" class="input_image" id="a11" value="instance_norm/udnie.t7" />
+            <label for="a11">
+              <span>
+                <img class="imgs" id="a11"
+                  src="https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Francis_Picabia%2C_1913%2C_Udnie_%28Young_American_Girl%2C_The_Dance%29%2C_oil_on_canvas%2C_290_x_300_cm%2C_Mus%C3%A9e_National_d%E2%80%99Art_Moderne%2C_Centre_Georges_Pompidou%2C_Paris..jpg/600px-Francis_Picabia%2C_1913%2C_Udnie_%28Young_American_Girl%2C_The_Dance%29%2C_oil_on_canvas%2C_290_x_300_cm%2C_Mus%C3%A9e_National_d%E2%80%99Art_Moderne%2C_Centre_Georges_Pompidou%2C_Paris..jpg"
+                  alt="instance_norm/udnie.t7">
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="filebox">
+        <input type="file" id="fileUpload" class="real-upload" accept="image/*" required multiple />
+        <input class="upload-name" value="" />
+        <label for="fileUpload">파일 찾기</label>
+      </div>
+      <div class="write">
+        <input class="title" id="title" placeholder="제목을 입력해주세요. (30자)" /><br>
+        <textarea class="content" id="content" placeholder="내용을 입력해주세요. (100자)"></textarea>
+      </div>
+      <div class="result-btn upload">
+        <button id="result" type="button" class="btn btn-dark" onclick="post_article()">👉 결과 보러가기! 👈</button>
+      </div>
+    </div>
+  </div>
+  <!--  Modal end -->
+
+  <!-- 게시글 시작 -->
+  <ul class="post-card" id="card">
+    <!-- temp_html.append -->
+  </ul>
+
+  <script src="../static/js/modal.js"></script>
+  <script src="../static/js/api.js"></script>
+
+  <script>
+    // 로그인 하지 않은 유저 접근 금지 //
+    var token = localStorage.getItem("access")
+    if (!token) {
+      window.location.replace(`${frontend_base_url}login.html`)
+    }
+  </script>
+</body>
+
 </html>

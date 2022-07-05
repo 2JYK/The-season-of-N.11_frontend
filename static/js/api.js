@@ -114,7 +114,6 @@ function time2str(date) {
 };
 
 
-// 모달 시작 //
 // 모달 제어 //
 function open_modal(id) {
     //팝업을 flex속성으로 바꿔준 후 hide()로 숨기고 다시 fadeIn()으로 효과

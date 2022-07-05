@@ -1,72 +1,83 @@
 <!DOCTYPE html>
 <html lang="ko">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="Content-Type" content="text/html">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
-        <!-- 반응형 -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 반응형 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <!-- JQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
 
-        <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
 
-        <!-- Add icon library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
-        
-        <title>My Page</title>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/0c764fa4c5.js" crossorigin="anonymous"></script>
 
-        <link rel="stylesheet" href="../static/css/style.css">
-        <link rel="stylesheet" href="../static/css/nav.css">
-        <link rel="stylesheet" href="../static/css/modal.css">
-        <link rel="stylesheet" href="../static/css/mypage.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container">
-                <div class="navbar-brand">
-                    <a class="nav-link" href="./index.html"></a>
-                </div>
-                <form class="form-inline my-2 my-lg-0">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a class="nav-link" id="link-logout" href="#" onclick="logout()"> 로그아웃 </a>
-                        </li>
-                    </ul>
-                </form>
+    <title>My Page</title>
+
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/nav.css">
+    <link rel="stylesheet" href="../static/css/modal.css">
+    <link rel="stylesheet" href="../static/css/mypage.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="nav-link" href="./index.html"></a>
             </div>
-        </nav>
-        <div class="navbar two">
-            <div class="mypage-btn">
-                <button id="myposts" type="button" class="btn btn-dark" href="./mypage.html" onclick="mypage()">
-                    <i class="fa-regular fa-images"></i>
-                </button>
-            </div>
-            <div class="mypage-btn">
-                <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()">
-                    <i class="fa-regular fa-bookmark" ></i>
-                </button>
-            </div>
+            <form class="form-inline my-2 my-lg-0">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" id="link-logout" href="#" onclick="logout()"> 로그아웃 </a>
+                    </li>
+                </ul>
+            </form>
         </div>
-        
-        <!-- 게시글 시작 -->
-        <ul class="post-card" id="mypage_card">
-            <!-- temp_html.append -->
-        </ul>
+    </nav>
+    <div class="navbar two">
+        <div class="mypage-btn">
+            <button id="myposts" type="button" class="btn btn-dark" href="./mypage.html" onclick="mypage()">
+                <i class="fa-regular fa-images"></i>
+            </button>
+        </div>
+        <div class="mypage-btn">
+            <button id="bookmark" type="button" class="btn btn-dark" onclick="bookmark()">
+                <i class="fa-regular fa-bookmark"></i>
+            </button>
+        </div>
+    </div>
 
-        <script src="../static/js/api.js"></script>
-        <script src="../static/js/mypage.js"></script>
-    </body>
+    <!-- 게시글 시작 -->
+    <ul class="post-card" id="mypage_card">
+        <!-- temp_html.append -->
+    </ul>
+
+    <script src="../static/js/api.js"></script>
+    <script src="../static/js/mypage.js"></script>
+
+    <script>
+        // 로그인 하지 않은 유저 접근 금지 //
+        var token = localStorage.getItem("access")
+        if (!token) {
+            window.location.replace(`${frontend_base_url}login.html`)
+        }
+    </script>
+
+</body>
+
 </html>
-
