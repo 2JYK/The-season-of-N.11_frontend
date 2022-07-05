@@ -92,10 +92,6 @@ function bookmark() {
             xhr.setRequestHeader("Content-type", "application/json");
             xhr.setRequestHeader("Authorization", "Bearer " + token);
         },
-        error: function (request, status, error) {
-            alert("로그인한 사용자만 이용 가능합니다.")
-            window.location.replace(`${frontend_base_url}login.html`)
-        },
         success: function (response) {
             for (let i = 0; i < response.length; i++) {
                 bookmark_info(
