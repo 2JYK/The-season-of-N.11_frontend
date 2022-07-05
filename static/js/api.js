@@ -142,6 +142,10 @@ function show_article() {
         type: 'GET',
         url: `${backend_base_url}article/`,
         data: {},
+        error: function (request, status, error) {
+            alert("로그인한 사용자만 이용 가능합니다.")
+            window.location.replace(`${frontend_base_url}login.html`)
+        },
         success: function (response) {
             let postings = response
             for (let i = 0; i < postings.length; i++) {
