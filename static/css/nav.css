@@ -17,7 +17,7 @@
 
 .navbar {
     background: rgba(0, 162, 255, 0.062);
-    z-index: 3;
+    z-index: 4;
     position: fixed;
     left: 0;
     right: 0;

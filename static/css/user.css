@@ -23,7 +23,7 @@ body {
 }
 
 .form-signup .form-floating:focus-within {
-    z-index: 2;
+    z-index: 1;
 }
 
 .form-signup input[type="email"] {
