@@ -85,28 +85,40 @@ body {
     height: 72px;
 }
 
+
+/* 스타일 선택지 */
 .style-imgs {
-    overflow: scroll;
-    margin: auto;
-    padding: 30px 0px 30px 0px;
+    display: flex;
+    overflow-x:auto;
+    overflow-y: hidden;
+    /* justify-content: space-between; */
+    margin-left: 10%;
+    margin-right: 10%;   
+    white-space:nowrap;
+    overflow-x:scroll;
 }
 
-.input_image {
-    margin-left: 20px;
+.imgbox {
+    margin: 20px;
 }
 
-input[type="checkbox"] {
-    display: none;
+.imgs {
+    width: 150px;
+    height: 150px;
 }
 
-input[type="checkbox"] {
-    display: inline-block;
-    vertical-align: middle;
+input[type="checkbox"]{display:none}
+
+input[type="checkbox"] + label
+
+span {
+    display:inline-block;
+    vertical-align:middle;
 }
 
-input[type="checkbox"]:checked+img {
+input[type="checkbox"]:checked + label span{
     border-radius: 1px;
-    box-shadow: 0px 0px 0px 8px rgba(255, 0, 0, 0.7);
+    box-shadow: 0px 0px 0px 8px rgba(92,119,255,0.3);
 }
 
 
