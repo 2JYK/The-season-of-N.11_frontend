@@ -173,7 +173,7 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
         let time_before = time2str(time_post)
 
         $(`#comment${id}`).append(`<p>${comments[j].username} : ${comments[j].content}
-            &nbsp &nbsp &nbsp &nbsp &nbsp
+            &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
             ${time_before}&nbsp&nbsp<i onclick="delete_comment(${comments[j].id})" class="fa-regular fa-trash-can"></i></p>
             <hr>`)
     }
