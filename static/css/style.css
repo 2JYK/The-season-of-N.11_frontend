@@ -85,7 +85,6 @@ body {
     height: 72px;
 }
 
-
 /* 스타일 선택지 */
 .style-imgs {
     display: flex;
@@ -121,7 +120,7 @@ input[type="checkbox"]:checked + label span{
     box-shadow: 0px 0px 0px 8px rgba(92,119,255,0.3);
 }
 
-
+/* 반응형 */
 @media (min-width: 718px) {
     .post-card {
         grid-template-columns: repeat(2, 1fr);

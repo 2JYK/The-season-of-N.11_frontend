@@ -10,7 +10,7 @@
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
+    z-index: 4;
     left: 0;
     top: 0;
     width: 100%;
@@ -138,7 +138,7 @@
     bottom: 0;
 
     display: none;
-    z-index: 2;
+    z-index: 4;
 }
 
 .popup {
@@ -194,7 +194,7 @@
 }
 
 .popup-post-comment {
-
+    margin-bottom: 2%;
     padding-right: 15%;
     padding-left: 15%;
     text-align: center;
@@ -222,5 +222,5 @@
 
 /* 모달 수정삭제 버튼 간격 */
 .popup-header i {
-    margin: 3%;
+    margin: 1%;
 }

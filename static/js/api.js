@@ -196,16 +196,13 @@ function show_article() {
                             <hr>
                         </div>
 
-                        <!-- 게시글 상세페이지 모달창 댓글 output -->
-                        <div class="popup-comment" id="comment${id}">
-                            <h1>댓글 창</h1>
-                            <hr>
-                        </div>
-                    
                         <!-- 게시글 상세페이지 모달창 댓글 input -->
                         <div class="popup-post-comment">
                             <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
                             <button class="popup-post-input-btn" onclick="post_comment(${id})">저장</button>
+                        </div>
+                        <!-- 게시글 상세페이지 모달창 댓글 output -->
+                        <div class="popup-comment" id="comment${id}">
                         </div>
                     </div>
                 </div>

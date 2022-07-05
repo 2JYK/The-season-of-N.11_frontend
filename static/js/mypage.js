@@ -53,16 +53,14 @@ function bookmark_info(id, username, title, content, comments, image) {
                         <h5 class="popup-content">${content}</h5>
                         <hr>
                     </div>
-                    <!-- 게시글 상세페이지 모달창 댓글 output -->
-                    <div class="popup-comment" id="comment${id}">
-                        <h1>댓글 창</h1>
-                        <hr>
-                    </div>
 
                     <!-- 게시글 상세페이지 모달창 댓글 input -->
                     <div class="popup-post-comment">
                         <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
                         <button class="popup-post-input-btn" onclick="post_comment(${id})">저장</button>
+                    </div>
+                    <!-- 게시글 상세페이지 모달창 댓글 output -->
+                    <div class="popup-comment" id="comment${id}">
                     </div>
                 </div>
             </div>
@@ -113,7 +111,7 @@ function bookmark() {
 
 // 나의 게시글 append 부분 //
 function append_mypage_html(id, username, title, content, comments, likes, bookmarks, image) {
-    // $('.popup-comment').empty()
+    $('.popup-comment').empty()
     temp_html = `
     <li>
         <div class="card-box">
@@ -154,16 +152,14 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
                             <hr>
                         </div>
                     </div>
-                    <!-- 게시글 상세페이지 모달창 댓글 output -->
-                    <div class="popup-comment" id="comment${id}">
-                        <h1>댓글 창</h1>
-                        <hr>
-                    </div>
 
                     <!-- 게시글 상세페이지 모달창 댓글 input -->
                     <div class="popup-post-comment">
                         <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
                         <button class="popup-post-input-btn" onclick="post_comment(${id})">저장</button>
+                    </div>
+                    <!-- 게시글 상세페이지 모달창 댓글 output -->
+                    <div class="popup-comment" id="comment${id}">
                     </div>
                 </div>
             </div>

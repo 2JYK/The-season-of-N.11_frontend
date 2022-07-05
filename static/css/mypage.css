@@ -1,11 +1,15 @@
 /* 포스트 카드 */
 .post-card {
+    z-index: 2;
+    position:absolute;
     max-width: 1200px;
-    margin: 200px auto 30px auto;
+    /* margin: 200px auto 30px auto; */
     display: grid;
-
     gap: 28px;
 
+    top: 90px;
+    left: 50%;
+    transform: translate(-50%, 0);
     @media screen and (max-width: 718px) {
         gap: 3px;
     }
@@ -72,7 +76,8 @@
 /* 내가 작성한 글 + 북마크 버튼 */
 .navbar.two {
     justify-content: center;
-    margin-top: 70px;
+    margin-top: 75px;
+    z-index: 1;
 }
 
 /* 버튼 간격 */
@@ -99,6 +104,6 @@
 @media (min-width: 900px) {
     .post-card {
         grid-template-columns: repeat(3, 1fr);
-        gap: 30px 10px;
+        gap: 30px 120px;
     }
 }
