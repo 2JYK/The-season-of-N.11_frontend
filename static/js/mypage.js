@@ -123,7 +123,7 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
                     <p class="card-text">${content}</p>
                 </div>
                 <div class="icons">
-                    <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span></span></i>
+                    <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span>${likes.length}</span></i>
                     <span></span>
                     <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
                 </div>
