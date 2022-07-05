@@ -29,53 +29,44 @@ function bookmark_info(id, username, title, content, comments, image) {
                 </div>
                 <div class="icons">
                     <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span></span></i>
-                        <span></span>
+                    <span></span>
                     <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
                 </div>
             </div>
-          
-          <!-- 게시글 상세페이지 모달 -->
-          <div class="popup-wrap" id="popup${id}">
-          <div class="popup">
-          
-          <!-- 게시글 상세페이지 모달창 헤더 -->
-          <div class="popup-header">
-          <span></span>
-          <h2>${username} 님의 게시물</h2>
-          <span></span>
-          <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
-          </div>
-          
-          <!-- 게시글 상세페이지 모달창 바디 -->
-          <div class="popup-body">
-          <div class="popup-img" style="background: url(${back_base_url}${image}) no-repeat center center/contain;">
-          </div>
-          <h2 class="popup-title">
-          ${title}
-          </h2>
-          <hr>
-          <h5 class="popup-content">
-          ${content}
-          </h5>
-          <hr>
-          </div>
-          <!-- 게시글 상세페이지 모달창 댓글 output -->
-          <div class="popup-comment" id="comment${id}">
-          <h1>댓글 창</h1>
-          <hr>
-          
-          </div>
-          
-          <!-- 게시글 상세페이지 모달창 댓글 input -->
-          <div class="popup-post-comment">
-          
-          <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
-          <button class="popup-post-input-btn" onclick="post_comment(${id})">
-          저장
-          </button>
-          </div>
-          </div>
-          </div>
+
+            <!-- 게시글 상세페이지 모달 -->
+            <div class="popup-wrap" id="popup${id}">
+                <div class="popup">
+                    <!-- 게시글 상세페이지 모달창 헤더 -->
+                    <div class="popup-header">
+                        <span></span>
+                        <h2>${username} 님의 게시물</h2>
+                        <span></span>
+                        <i type="dutton" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
+                    </div>
+
+                    <!-- 게시글 상세페이지 모달창 바디 -->
+                    <div class="popup-body">
+                        <div class="popup-img"style="background: url(${back_base_url}${image}) no-repeat center center/contain;"></div>
+                        <h2 class="popup-title">${title}</h2>
+                        <hr>
+                        <h5 class="popup-content">${content}</h5>
+                        <hr>
+                    </div>
+                    <!-- 게시글 상세페이지 모달창 댓글 output -->
+                    <div class="popup-comment" id="comment${id}">
+                        <h1>댓글 창</h1>
+                        <hr>
+                    </div>
+
+                    <!-- 게시글 상세페이지 모달창 댓글 input -->
+                    <div class="popup-post-comment">
+                        <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
+                        <button class="popup-post-input-btn" onclick="post_comment(${id})">저장</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </li>`
 
     $('#mypage_card').append(temp_html)
@@ -122,7 +113,7 @@ function bookmark() {
 
 // 나의 게시글 append 부분 //
 function append_mypage_html(id, username, title, content, comments, likes, bookmarks, image) {
-    $('.popup-comment').empty()
+    // $('.popup-comment').empty()
     temp_html = `
     <li>
         <div class="card-box">
@@ -135,57 +126,48 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
                 </div>
                 <div class="icons">
                     <i class="far fa-heart heart${id}" style="font-size:24px" onclick="post_like(${id})"><span></span></i>
-                        <span></span>
+                    <span></span>
                     <i class="fa fa-bookmark-o bookmark${id}" style="font-size:24px" onclick="post_bookmark(${id})"></i>
                 </div>
             </div>
-            
-      
+
             <!-- 게시글 상세페이지 모달 -->
             <div class="popup-wrap" id="popup${id}">
-            <div class="popup">
-            
-            <!-- 게시글 상세페이지 모달창 헤더 : 수정 및 삭제 -->
-            <div class="popup-header">
-            <span></span>
-            <i type="button" id="update_button(${id})" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
-            <i type="button" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
-            <span></span>
-            <i type="button" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
+                <div class="popup">
+                    <!-- 게시글 상세페이지 모달창 헤더 : 수정 및 삭제 -->
+                    <div class="popup-header">
+                        <span></span>
+                        <i type="button" id="update_button(${id})" onclick="edit_article(${id})" class="fa-solid fa-pen-to-square"></i>
+                        <i type="button" onclick="delete_article(${id})" class="fa-solid fa-trash-can"></i>
+                        <span></span>
+                        <i type="button" id="1${id}" onClick="close_modal(this.id)" class="popup-close fa-solid fa-square-xmark"></i>
+                    </div>
+
+                    <!-- 게시글 상세페이지 모달창 바디 -->
+                    <div class="popup-body">
+                        <div class="popup-img" style="background: url(${back_base_url}${image}) no-repeat center center/contain;"></div>
+                        <!-- 게시글 수정 구간 -->
+                        <div id="edit(${id})">
+                            <h2 class="popup-title" id="title(${id})">${title}</h2>
+                            <hr>
+                            <h5 class="popup-content" id="content(${id})">${content}</h5>
+                            <hr>
+                        </div>
+                    </div>
+                    <!-- 게시글 상세페이지 모달창 댓글 output -->
+                    <div class="popup-comment" id="comment${id}">
+                        <h1>댓글 창</h1>
+                        <hr>
+                    </div>
+
+                    <!-- 게시글 상세페이지 모달창 댓글 input -->
+                    <div class="popup-post-comment">
+                        <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
+                        <button class="popup-post-input-btn" onclick="post_comment(${id})">저장</button>
+                    </div>
+                </div>
             </div>
-            
-            <!-- 게시글 상세페이지 모달창 바디 -->
-            <div class="popup-body"> 
-            
-            <div class="popup-img" style="background: url(${back_base_url}${image}) no-repeat center center/contain;">
-            </div>
-            <!-- 게시글 수정 구간 -->
-            <div id="edit(${id})">
-                <h2 class="popup-title" id="title(${id})">
-                ${title}
-                </h2>
-                <hr>
-                <h5 class="popup-content" id="content(${id})">
-                ${content}
-                </h5>
-                <hr>
-            </div>
-            </div>
-            <!-- 게시글 상세페이지 모달창 댓글 output -->
-            <div class="popup-comment" id="comment${id}">
-            <h1>댓글 창</h1>
-            <hr>
-            </div>
-            
-            <!-- 게시글 상세페이지 모달창 댓글 input -->
-            <div class="popup-post-comment">
-            <input class="popup-post-input" id="comment_input${id}" type="text" placeholder="댓글을 입력 해주세요..." />
-            <button class="popup-post-input-btn" onclick="post_comment(${id})">
-            저장
-            </button>
-            </div>
-            </div>
-            </div>
+        </div>
     </li>`
 
     $('#mypage_card').append(temp_html)
