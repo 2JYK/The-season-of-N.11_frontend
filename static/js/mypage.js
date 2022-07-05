@@ -96,7 +96,9 @@ function bookmark_info(id, username, title, content, comments, image) {
   }
 }
 
+
 function bookmark() {
+  $('#mypage_card').empty()
   var token = localStorage.getItem("access")
   $.ajax({
     type: 'GET',
@@ -107,7 +109,6 @@ function bookmark() {
     },
 
     success: function (response) {
-      console.log(response)
       for (let i = 0; i < response.length; i++) {
         bookmark_info(
           response[i].id,
@@ -123,6 +124,7 @@ function bookmark() {
     }
   })
 };
+
 
 
 // 마이 페이지 //
@@ -260,6 +262,7 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
 
 // 내가 작성한 게시글 조회 //
 function mypage() {
+  $('#mypage_card').empty()
   var token = localStorage.getItem("access")
   $.ajax({
     type: 'GET',
@@ -271,8 +274,6 @@ function mypage() {
 
     success: function (response) {
       for (let i = 0; i < response.length; i++) {
-        console.log('for 문 :', response[i])
-      
         append_mypage_html(
           response[i].id,
           response[i].username,
@@ -303,7 +304,7 @@ async function delete_article(id) {
 
   if (response.status == 200) {
     window.location.reload();
-  
+
   } else {
     alert("게시글 작성자만 삭제 가능합니다.")
   }
