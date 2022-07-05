@@ -214,7 +214,7 @@ body::before {
 .int-area input:valid+label {
     top: -2px;
     font-size: 13px;
-    color: rgb(62, 177, 177);
+    color: rgb(77, 75, 218);
     /* 글자 애니메이션 색상 지정 */
 }
 
