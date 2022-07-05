@@ -10,10 +10,10 @@ body {
     align-items: center;
     height: 100vh;
     background-color: #ffffff3f;
-    ;
 
-    /* background: url(../css/img/art1.jpg) no-repeat center; */
-    /* background-size: cover; */
+    background: url(../css/img/bg.jpg) no-repeat;
+    background-size: cover;
+    /* background-position: center; */
 }
 
 body::before {
@@ -78,8 +78,8 @@ body::before {
 .sign {
     position: absolute;
     right: 20%;
-
-    z-index: 3;
+    
+    z-index: 2;
 }
 
 @media screen and (max-width:1300px) {
@@ -88,12 +88,23 @@ body::before {
     }
 }
 
+.sign-logo {
+    background: url("../css/img/sign-logo.png");
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    
+    position: relative;
+    bottom: 350px;
+}
+
 .sign h1 {
     font-size: 32px;
     color: black;
     text-align: center;
     margin-bottom: 60px;
 }
+
 
 /* 아이디, 패스워스 박스 */
 .int-area {
@@ -186,7 +197,24 @@ body::before {
     text-decoration: none;
 }
 
-.kenburns-top {
-    -webkit-animation: kenburns-top 5s infinite;
-    animation: kenburns-top 3s infinite
+.bg-pan-bl {
+	-webkit-animation: bg-pan-bl 8s both;
+	        animation: bg-pan-bl 8s both;
 }
+
+ @-webkit-keyframes bg-pan-bl {
+    0% {
+      background-position: 100% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
+  @keyframes bg-pan-bl {
+    0% {
+      background-position: 100% 0%;
+    }
+    100% {
+      background-position: 0% 100%;
+    }
+  }
