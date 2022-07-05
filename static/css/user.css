@@ -32,11 +32,11 @@ body::before {
     background: url("../css/img/art1.jpg");
     background-size: cover;
     border-radius: 5%;
-    
+
     position: relative;
     top: -13%;
     left: 2%;
-    
+
     width: 30%;
     height: 400px;
 }
@@ -45,32 +45,75 @@ body::before {
     background: url("../css/img/art2.jpg");
     background-size: cover;
     border-radius: 5%;
-    
+
     position: relative;
     top: 15%;
     left: -23%;
     z-index: 1;
-    
+
     width: 30%;
     height: 400px;
-    
+
 }
 
 .bg-img3 {
     background: url("../css/img/art3.jpg");
     background-size: cover;
     border-radius: 5%;
-    
+
     position: relative;
     top: -20%;
     left: -42%;
-    
+
+    width: 30%;
+    height: 300px;
+}
+
+.bg-img4 {
+    background: url("../css/img/art4.jpg");
+    background-size: cover;
+    border-radius: 5%;
+
+    position: relative;
+    top: -13%;
+    left: 2%;
+
+    width: 30%;
+    height: 400px;
+}
+
+.bg-img5 {
+    background: url("../css/img/art5.jpg");
+    background-size: cover;
+    border-radius: 5%;
+
+    position: relative;
+    top: 15%;
+    left: -23%;
+    z-index: 1;
+
+    width: 30%;
+    height: 400px;
+}
+
+.bg-img6 {
+    background: url("../css/img/art6.jpg");
+    background-size: cover;
+    border-radius: 5%;
+
+    position: relative;
+    top: -20%;
+    left: -42%;
+
     width: 30%;
     height: 300px;
 }
 
 @media screen and (max-width:1300px) {
-    .bg-img1, .bg-img2, .bg-img3 {
+
+    .bg-img1,
+    .bg-img2,
+    .bg-img3 {
         display: none;
     }
 }

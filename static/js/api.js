@@ -26,7 +26,7 @@ async function handleSignup() {
     if (response.status == 200) {
         window.location.replace(`${frontend_base_url}login.html`)
     } else {
-        alert(response.status)
+        alert("조건에 맞춰 입력해주세요.")
     }
 }
 
@@ -63,7 +63,7 @@ async function handleLogin() {
         localStorage.setItem("payload", jsonPayload);
         window.location.replace(`${frontend_base_url}index.html`)
     } else {
-        alert(response.status)
+        alert("잘못된 로그인입니다.", response.status)
     }
 }
 
