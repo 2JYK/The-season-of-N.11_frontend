@@ -147,7 +147,6 @@ function append_mypage_html(id, username, title, content, comments, likes, bookm
                         <!-- 게시글 수정 구간 -->
                         <div id="edit(${id})">
                             <h2 class="popup-title" id="title(${id})">${title}</h2>
-                            <hr>
                             <h5 class="popup-content" id="content(${id})">${content}</h5>
                             <hr>
                         </div>
@@ -271,7 +270,6 @@ function edit_article(id) {
     const input_content = document.createElement("textarea")
     input_content.setAttribute("id", "input_content")
     input_content.innerText = content.innerHTML
-    input_content.rows = 10
 
     const body = document.getElementById(`edit(${id})`)
     body.insertBefore(input_title, title)

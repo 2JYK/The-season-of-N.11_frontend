@@ -90,7 +90,6 @@ body {
     display: flex;
     overflow-x:auto;
     overflow-y: hidden;
-    /* justify-content: space-between; */
     margin-left: 10%;
     margin-right: 10%;   
     white-space:nowrap;
