@@ -14,47 +14,54 @@
 body {
     /* background: rgba(0, 162, 255, 0.062); */
     background: rgb(235, 235, 235);
+
 }
 
-/* 포스트 카드 */
+/* 업로드 버튼 */
 .upload-btn {
     padding-top: 1%;
 }
 
 /* 포스트 카드 */
 .post-card {
-    width: 60%;
-    margin: auto;
+    max-width: 1200px;
+    margin: 100px auto 30px auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
 
+    gap: 28px;
     @media screen and (max-width: 718px) {
         gap: 3px;
+        
     }
 }
 
 .post-card>li {
+
     flex: 1;
     height: auto;
-    margin: 20% auto auto 10%;
+    /* margin: 20% auto auto 10%; */
 }
 
 .card-box {
+    width: 280px;
+    margin: 0 auto;
     /* border: 7px solid rgba(128, 128, 128, 0.171); */
-    border: 5px solid rgba(134, 72, 1, 0.562);
-    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541);
+    /* border: 5px solid rgba(134, 72, 1, 0.562);
+    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541); */
 }
 
 .card {
     cursor: pointer;
     border-bottom: none;
+    border: 5px solid rgba(134, 72, 1, 0.562);
+    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541);
+    margin-bottom: 10%;
+    /* margin: 0; */
 }
 
 .card-img {
-    /* width: 30.8vh; */
     height: 190px;
-
+    margin-top: 3%;
     background-size: cover;
     background-position: center;
 }
@@ -70,9 +77,9 @@ body {
 
     padding: 3%;
     background: white;
-    border-bottom: 1px solid rgba(0, 0, 0, .125);
+    /* border-bottom: 1px solid rgba(0, 0, 0, .125);
     border-left: 1px solid rgba(0, 0, 0, .125);
-    border-right: 1px solid rgba(0, 0, 0, .125);
+    border-right: 1px solid rgba(0, 0, 0, .125); */
 }
 
 .icons i {
@@ -112,4 +119,19 @@ input[type="checkbox"] {
 input[type="checkbox"]:checked+img {
     border-radius: 1px;
     box-shadow: 0px 0px 0px 8px rgba(255, 0, 0, 0.7);
+}
+
+
+@media (min-width: 718px) {
+    .post-card {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px 3px;
+    }
+}
+
+@media (min-width: 900px) {
+    .post-card {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px 10px;
+    }
 }

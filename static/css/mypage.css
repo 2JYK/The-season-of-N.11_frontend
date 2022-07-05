@@ -1,9 +1,26 @@
-/* 내가 작성한 글 + 북마크 버튼 */
-.navbar.two {
-    justify-content: center;
-}
 
-/* 버튼 간격 */
-.mypage-btn {
-    margin: 15px;
-}
+/* 포스트 카드와 상단바 간격 */
+.post-card {
+    margin: 200px auto auto auto;
+    }
+    
+    /* 버튼 간격 */
+    .mypage-btn {
+        margin: 15px;
+    
+    }
+    
+    /* 내가 작성한 글 + 북마크 버튼 */
+    .navbar.two {
+        justify-content: center;
+        margin-top: 70px;
+    
+    }
+    
+    .fa-solid {
+        font-size: 25px;
+    }
+    
+    .fa-regular {
+        font-size: 25px;
+    }
