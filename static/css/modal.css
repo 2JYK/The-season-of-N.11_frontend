@@ -20,7 +20,6 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-
 .modal-content {
     background-color: rgb(238, 236, 232);
     margin: 5% auto;
@@ -48,13 +47,11 @@
     margin-right: 10%;
 }
 
-
 .imgs {
     background-color: blueviolet;
     width: 150px;
     height: 150px;
 }
-
 
 /* Upload Button */
 .filebox {
@@ -92,7 +89,6 @@
     color: #999999;
 }
 
-
 /* 게시글 입력란 */
 .write {
     margin: auto;
@@ -121,7 +117,6 @@
     font-weight: bold;
 }
 
-
 /* 게시글 상세 Modal */
 .popup-wrap {
     overflow-y: initial !important
@@ -142,11 +137,8 @@
     right: 0;
     bottom: 0;
 
-    /* padding-top: 2%; */
-
     display: none;
     z-index: 2;
-
 }
 
 .popup {
@@ -154,11 +146,9 @@
 
     width: 95%;
     height: 90%;
-    /* padding-top: 5%; */
 
     background-color: rgb(238, 236, 232);
 }
-
 
 /* 모달창 헤더 */
 .popup-header {
@@ -176,7 +166,6 @@
     font-size: 30px;
 }
 
-
 /* 모달창 바디 */
 .popup-body {
     text-align: center;
@@ -192,16 +181,12 @@
     padding-right: 15%;
     padding-left: 15%;
     text-align: center;
-
 }
-
 
 /* 모달창 댓글 */
 .popup-comment {
     padding-right: 30%;
     padding-left: 30%;
-    /* text-align: center; */
-
 }
 
 .popup-comment>h1 {
@@ -233,11 +218,9 @@
     border: none;
     outline: none;
     background-color: transparent;
-
 }
-
 
 /* 모달 수정삭제 버튼 간격 */
 .popup-header i {
-    margin : 3%;
+    margin: 3%;
 }

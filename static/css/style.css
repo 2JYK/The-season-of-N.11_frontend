@@ -12,9 +12,7 @@
 }
 
 body {
-    /* background: rgba(0, 162, 255, 0.062); */
     background: rgb(235, 235, 235);
-
 }
 
 /* 업로드 버튼 */
@@ -29,25 +27,20 @@ body {
     display: grid;
 
     gap: 28px;
+
     @media screen and (max-width: 718px) {
         gap: 3px;
-        
     }
 }
 
 .post-card>li {
-
     flex: 1;
     height: auto;
-    /* margin: 20% auto auto 10%; */
 }
 
 .card-box {
     width: 280px;
     margin: 0 auto;
-    /* border: 7px solid rgba(128, 128, 128, 0.171); */
-    /* border: 5px solid rgba(134, 72, 1, 0.562);
-    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541); */
 }
 
 .card {
@@ -56,7 +49,6 @@ body {
     border: 5px solid rgba(134, 72, 1, 0.562);
     box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541);
     margin-bottom: 10%;
-    /* margin: 0; */
 }
 
 .card-img {
@@ -77,9 +69,6 @@ body {
 
     padding: 3%;
     background: white;
-    /* border-bottom: 1px solid rgba(0, 0, 0, .125);
-    border-left: 1px solid rgba(0, 0, 0, .125);
-    border-right: 1px solid rgba(0, 0, 0, .125); */
 }
 
 .icons i {
@@ -100,7 +89,6 @@ body {
     overflow: scroll;
     margin: auto;
     padding: 30px 0px 30px 0px;
-
 }
 
 .input_image {
@@ -124,14 +112,14 @@ input[type="checkbox"]:checked+img {
 
 @media (min-width: 718px) {
     .post-card {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px 3px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px 3px;
     }
 }
 
 @media (min-width: 900px) {
     .post-card {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px 10px;
     }
 }

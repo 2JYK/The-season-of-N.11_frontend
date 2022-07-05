@@ -1,4 +1,3 @@
-
 /* 포스트 카드 */
 .post-card {
     max-width: 1200px;
@@ -6,25 +5,20 @@
     display: grid;
 
     gap: 28px;
+
     @media screen and (max-width: 718px) {
         gap: 3px;
-        
     }
 }
 
 .post-card>li {
-
     flex: 1;
     height: auto;
-    /* margin: 20% auto auto 10%; */
 }
 
 .card-box {
     width: 280px;
     margin: 0 auto;
-    /* border: 7px solid rgba(128, 128, 128, 0.171); */
-    /* border: 5px solid rgba(134, 72, 1, 0.562);
-    box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541); */
 }
 
 .card {
@@ -33,7 +27,6 @@
     border: 5px solid rgba(134, 72, 1, 0.562);
     box-shadow: 3px 3px 3px 3px rgba(128, 128, 128, 0.541);
     margin-bottom: 10%;
-    /* margin: 0; */
 }
 
 .card-img {
@@ -54,9 +47,6 @@
 
     padding: 3%;
     background: white;
-    /* border-bottom: 1px solid rgba(0, 0, 0, .125);
-    border-left: 1px solid rgba(0, 0, 0, .125);
-    border-right: 1px solid rgba(0, 0, 0, .125); */
 }
 
 .icons i {
@@ -77,20 +67,17 @@
     overflow: scroll;
     margin: auto;
     padding: 30px 0px 30px 0px;
-
 }
 
 /* 내가 작성한 글 + 북마크 버튼 */
 .navbar.two {
     justify-content: center;
     margin-top: 70px;
-
 }
 
 /* 버튼 간격 */
 .mypage-btn {
     margin: 15px;
-
 }
 
 .fa-solid {
@@ -101,19 +88,17 @@
     font-size: 25px;
 }
 
-
-
-
+/* 반응형 */
 @media (min-width: 718px) {
     .post-card {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px 3px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px 3px;
     }
 }
 
 @media (min-width: 900px) {
     .post-card {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px 10px;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px 10px;
     }
 }

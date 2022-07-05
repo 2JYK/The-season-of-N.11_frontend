@@ -16,7 +16,6 @@
 }
 
 .navbar {
-    /* background: rgba(207, 255, 95, 0.089); */
     background: rgba(0, 162, 255, 0.062);
     z-index: 1;
     position: fixed;
@@ -37,7 +36,6 @@
     background: transparent;
     border: none;
     color: black;
-    /* margin-left: 300px; */
 }
 
 .search {
@@ -51,19 +49,19 @@
     height: 40px;
 }
 
-
 /* 반응형  */
 @media screen and (max-width: 450px) {
     #link-upload {
-        display : none;
+        display: none;
     }
 }
 
 @media screen and (max-width: 370px) {
     #link-logout {
-        display : none;
+        display: none;
     }
+
     #link-mypage {
-        display : none;
+        display: none;
     }
 }
