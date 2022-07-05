@@ -110,10 +110,12 @@ body::before {
 }
 
 @media screen and (max-width:1300px) {
-
     .bg-img1,
     .bg-img2,
-    .bg-img3 {
+    .bg-img3,
+    .bg-img4,
+    .bg-img5,
+    .bg-img6 {
         display: none;
     }
 }
