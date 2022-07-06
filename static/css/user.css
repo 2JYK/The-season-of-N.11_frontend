@@ -122,14 +122,19 @@ body::before {
 
 .sign {
     position: absolute;
-    right: 20%;
-    
     z-index: 2;
 }
 
 @media screen and (max-width:1300px) {
     .sign {
         margin: auto;
+    }
+}
+
+@media (min-width:1300px) {
+    .sign {
+        right: 20%;
+        margin: 50% auto;
     }
 }
 
@@ -146,6 +151,10 @@ body::before {
 @media screen and (max-height:800px) {
     .sign-logo {
         bottom: 250px;
+    }
+    .sign {
+        top: 250px;
+        resize: 60%;
     }
 }
 
