@@ -81,15 +81,13 @@ backend repo ->  https://github.com/2JYK/The-season-of-N.11_backend/
 
 ```
 Commit Type
+- Add : 새로운 파일 추가
 - Feat : 새로운 기능 추가/수정/삭제
 - Fix : 버그 수정
-- Docs : 문서 수정
+- Update : 기존 기능 추가/수정/삭제
+- Comment : 주석 관련
 - Design : CSS 등 사용자 UI 디자인 변경
 - Style: 코드에 영향을 주지 않는 변경사항 /  코드 포맷 변경, 새미 콜론 누락, 코드 수정이 없는 경우
-- Refactor: 코드 리팩토링
-- Test: 테스트 코드/기능 추가
-- Rename : 파일 혹은 폴더명을 수정하거나 옮기는 작업만인 경우
-- Remove : 파일을 삭제하는 작업만 수행한 경우
 
 Subject
 - 50자를 넘기지 않고, 커밋 타입을 준수함.
@@ -157,6 +155,7 @@ Subject
 
 <img width="1068" alt="1" src="https://user-images.githubusercontent.com/104303285/177476197-2cb6923a-be8d-464b-9e25-43691928cde6.png">
 <img width="992" alt="2" src="https://user-images.githubusercontent.com/104303285/177476204-2ee1f179-cca1-4f74-8cfe-c8704cecd840.png">
+<img width="932" alt="3" src="https://user-images.githubusercontent.com/104303285/177476214-c5af63ed-9039-4714-97a0-f1c442e9f8c7.png">
 
 ---
 
