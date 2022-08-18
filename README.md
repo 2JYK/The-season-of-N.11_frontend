@@ -67,59 +67,6 @@ backend repo ->  https://github.com/2JYK/The-season-of-N.11_backend/
 ### 😇 ERD 작성
 ![ERD](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FOhP0p%2FbtrFXYWawfh%2FK8nnxUm26abG8R7pm3yMhK%2Fimg.png)
 
-```
-user {
-	"user_id(pk)" : "Primary Key",
-	"username" : "사용자 아이디",
-	"password" : "비밀번호",
-	"email" : "이메일",
-	"fullname": "이름",
-	"join_date": "생성시간",
-}
-
-style {
-	"style_id(pk)": "Primary Key",
-	"style_image": "풍경 사진",
-	"category": "카테고리"
-}
-
-image {
-	"image_id(pk)": "Primary Key",
-	"style_id(fk)": "Foreign Key",
-	"output_img": "결과 사진"
-}
-
-article {
-	"article_id(pk)" : "Primary Key",
-	"user_id(fk)" : "Foreign Key",
-	"image": "이미지",
-	"title" : "제목",
-	"content" : "내용",
-	"created_at" : "등록 일자",
-	"modlfied_at" : "수정 일자"
-}
-
-comment {
-	"comment_id(pk)" : "Primary Key",
-	"article_id(fk)": "Foreign Key",
-	"user_id(fk)" : "Foreign Key",
-	"content" : "내용",
-	"modlfied_at" : "수정 일자"
-}
-
-like {
-	"like_id(pk)" : "Primary Key",
-	"article(fk)" : "Foreign Key",
-	"user_id(fk)" : "Foreign Key"
-}
-
-bookmark {
-	"bookmark_id(pk)" : "Primary Key",
-	"article_id(fk)" : "Foreign Key",
-	"user_id(fk)" : "Foreign Key"
-}
-```
-
 ---
 
 ## 👻 컨벤션
@@ -210,7 +157,6 @@ Subject
 
 <img width="1068" alt="1" src="https://user-images.githubusercontent.com/104303285/177476197-2cb6923a-be8d-464b-9e25-43691928cde6.png">
 <img width="992" alt="2" src="https://user-images.githubusercontent.com/104303285/177476204-2ee1f179-cca1-4f74-8cfe-c8704cecd840.png">
-<img width="932" alt="3" src="https://user-images.githubusercontent.com/104303285/177476214-c5af63ed-9039-4714-97a0-f1c442e9f8c7.png">
 
 ---
 
